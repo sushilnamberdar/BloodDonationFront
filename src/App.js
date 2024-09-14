@@ -32,24 +32,25 @@ function App() {
     checkAuth();
   }, []);
 
+  const[signup,setsignup]=useState(false); 
 
 
   return (
     <div className="App">
-    {adminToken? "" : <Navbarjs setToken={setToken}/>}
+    {adminToken? "" : <Navbarjs setsignup={setsignup} setToken={setToken}/>}
       <div>    
         <Routes>
-        <Route path="/" element={token ? <Navigate to="/home" /> : <LoginSignup setToken={setToken} />} />
+        <Route path="/loginsignup" element={token ? <Navigate to="/home"/> : <LoginSignup setsignup={setsignup} signup={signup} setToken={setToken} />} />
           <Route path="/admin" element={adminToken ? <AdminPanel setAdminToken={setAdminToken}/> : <Navigate to="/adminLogin" />} />
           <Route path="/adminLogin" element={adminToken ? <Navigate to="/admin"/> : <AdminLogSign setAdminToken={setAdminToken}/>} />
           <Route path="/home" element={token ? <Hero setToken = {setToken}/> : <Navigate to="/" />} />
-          <Route path="/bloodRequirement" element={token ? <BloodRequirement setToken = {setToken}/> : <Navigate to="/" />} />
+          <Route path="/bloodRequirement" element={<BloodRequirement setToken = {setToken}/>} />
           <Route path="/donationDetails" element={token ? <DonationDetails setToken = {setToken}/> : <Navigate to="/" />} />
-          <Route path="/donorsResponse" element={token ? <DonorResponse setToken = {setToken} /> : <Navigate to="/" />} />
+          <Route path="/donorsResponse" element={ <DonorResponse setToken = {setToken}/>} />
           <Route path="/userDetails" element={adminToken ? <UserDetails/> : <Navigate to="/adminLogin" />} />
           <Route path="/donorsResponseAdmin" element={ <DonorResponseAdmin/>} />
           <Route path='/about' element={<AboutPage/>}/>
-          <Route path='/welcome' element={<WelcomePage/>}/>
+          <Route path='/' element={<WelcomePage/>}/>
         </Routes>
       </div>
       { adminToken? "" : <Footer/>}

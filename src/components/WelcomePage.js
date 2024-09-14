@@ -1,13 +1,14 @@
 import React, { useEffect, useRef, useState } from 'react';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-import bloodDonationImg from './images/bloodDonationLogin.jpg';
+import Img from './images/bloodDonationLogin4.jpg';
 import img1 from './images/bloodDonationLogin1.jpg';
 import img2 from './images/bloodDonationLogin2.jpg';
-import img3 from './images/bloodDonationLogin3.jpg';
+import img3 from './images/bloodDonationLogin4.jpg';
 import img4 from './images/bloodDonationLogin4.jpg';
-import donor1 from './images/donarimage/doner1.jpg';
 
+
+import donor1 from './images/donarimage/doner1.jpg';
 import donor2 from './images/donarimage/doner2.jpg';
 import donor3 from './images/donarimage/doner4.webp';
 import donor4 from './images/donarimage/charts.png';
@@ -58,23 +59,20 @@ const events = [
 ];
 
 const WelcomePage = () => {
-    const images = [bloodDonationImg, img1, img2, img3, img4];
-    const donorImages = [donor1, donor2, donor3, donor4, donor5, donor6, donor7];
+    const images = [Img, img1, img2, img3];
+    const [currentIndex, setCurrentIndex] = useState(0);
+    const sliderRef = useRef(null);
 
     useEffect(() => {
         AOS.init({ duration: 1000 });
     }, []);
 
-    const [currentIndex, setCurrentIndex] = useState(0);
-    const sliderRef = useRef(null);
-
     useEffect(() => {
         const interval = setInterval(() => {
-            setCurrentIndex(prevIndex => (prevIndex + 1) % donorImages.length);
-        }, 3000); // Change image every 3 seconds
-
+            setCurrentIndex(prevIndex => (prevIndex + 1) % images.length);
+        }, 2000); // Change image every 2 seconds
         return () => clearInterval(interval); // Clean up interval on component unmount
-    }, []);
+    }, [images.length]);
 
     useEffect(() => {
         if (sliderRef.current) {
@@ -109,7 +107,7 @@ const WelcomePage = () => {
                     {/* Image Section */}
                     <div data-aos="fade-left" className="w-full lg:w-1/2 p-4 lg:p-6">
                         <img
-                            src={images[0]}
+                            src={images[currentIndex]}
                             alt="Blood Donation"
                             className="rounded-lg shadow-lg object-cover w-full h-64 sm:h-80 lg:h-96"
                         />
@@ -142,7 +140,7 @@ const WelcomePage = () => {
                   <Carousel>
                     <Carousel.Item interval={1000}>
                         <img
-                            className="w-full h-80 object-cover" // Tailwind classes
+                            className="w-full h-96 object-cover" // Tailwind classes
                             src={donor1}
                             alt="First slide"
                         />

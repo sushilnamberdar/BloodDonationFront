@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import logo from './images/iinsaf.png';  // Ensure the correct path for the logo
-import loginImage from './images/bloodDonationLogin.jpg'; // Add an image on the left side
+import loginImage from './images/bloodDonationLogin1.jpg'; // Add an image on the left side
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 

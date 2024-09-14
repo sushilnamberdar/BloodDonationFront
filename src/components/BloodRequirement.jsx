@@ -1,7 +1,8 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import './styles/BloodRequirement.css'
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
+import userEvent from '@testing-library/user-event';
 
 const BloodRequirement = ({ setToken }) => {
     const [requests, setRequests] = useState([]);
@@ -19,6 +20,8 @@ const BloodRequirement = ({ setToken }) => {
     const [endDate, setEndDate] = useState('');
     const [campRequests, setCampRequests] = useState([]);
 
+    const pageLocation = useLocation();
+    setToken(localStorage.getItem('token'))
     const handleSubmit = async () => {
         const formData = {
             location,
@@ -47,6 +50,12 @@ const BloodRequirement = ({ setToken }) => {
         getSentRequests();
         getSentCampRequests();
     }, []);
+    
+    useEffect(()=> {
+        getSentRequests();
+    },[])
+    
+    
 
     const getLocation = () => {
         if (navigator.geolocation) {
@@ -152,96 +161,96 @@ const BloodRequirement = ({ setToken }) => {
     }
     return (
         <>
-                <div className='flex flex-wrap'>
+            <div className='flex flex-wrap'>
                 {/* // camp post  */}
-            <div class="w-full flex flex-col items-center justify-center p-4 blood-request-form">
-                <h1 class="text-xl font-semibold mb-4">Post Camp Details</h1>
-                <input
-                    type="text"
-                    name="campName"
-                    id="campName"
-                    placeholder="Enter Camp Name"
-                    value={campName}
-                    onChange={(e) => setCampName(e.target.value)}
-                    class="w-full max-w-md mb-2 p-2 border border-gray-300 rounded"
-                />
-                <input
-                    type="text"
-                    name="campAddress"
-                    id="campAddress"
-                    placeholder="Enter the address of the camp"
-                    value={campAddress}
-                    onChange={(e) => setCampAddress(e.target.value)}
-                    class="w-full max-w-md mb-2 p-2 border border-gray-300 rounded"
-                />
-                <label htmlFor="startDate" class="mb-1 text-sm">from</label>
-                <input
-                    type="date"
-                    name="startDate"
-                    id="startDate"
-                    value={startDate}
-                    onChange={(e) => setStartDate(e.target.value)}
-                    class="w-full max-w-xs mb-2 p-2 border border-gray-300 rounded"
-                />
-                <label htmlFor="endDate" class="mb-1 text-sm">to</label>
-                <input
-                    type="date"
-                    name="endDate"
-                    id="endDate"
-                    value={endDate}
-                    onChange={(e) => setEndDate(e.target.value)}
-                    class="w-full max-w-xs mb-2 p-2 border border-gray-300 rounded"
-                />
-                <button
-                    onClick={handleSubmit}
-                    class="mt-4 px-4 py-2 bg-blue-500 text-white font-semibold rounded hover:bg-blue-600"
-                >
-                    Submit
-                </button>
-            </div>
-            {/* // blood request  */}
-            <div className="blood-request-form">
-                <label htmlFor="bloodGroup" className="form-label">
-                    Enter the Blood Group in small case letters e.g., a+, b+, o-
-                </label>
-                <br />
-                <select className='h-10 border-2 border-black' value={bloodGroup} onChange={(e) => setBloodGroup(e.target.value)}>
-                    <option value="">Select Your Blood Group</option>
-                    <option value="a+">A+</option>
-                    <option value="a-">A-</option>
-                    <option value="b+">B+</option>
-                    <option value="b-">B-</option>
-                    <option value="ab+">AB+</option>
-                    <option value="ab-">AB-</option>
-                    <option value="o+">O+</option>
-                    <option value="o-">O-</option>
-                    <option value="a2+">A2+</option>
-                    <option value="a2-">A2-</option>
-                    <option value="a2b+">A2B+</option>
-                    <option value="a2b-">A2B-</option>
-                    <option value="hh">HH (Bombay Blood Group)</option>
-                    <option value="inra">INRA</option>
-                </select>
-                <br />
-                <label htmlFor="Name" className="form-label">
-                    Enter The Name
-                </label>
-                <br />
-                <input
-                    type="text"
-                    id="name"
-                    placeholder="Name Of Requestor"
-                    className="form-input"
-                    onChange={(e) => setName(e.target.value)}
-                />
-                <br />
-                <button className="form-button !bg-red-400 hover:!bg-red-500" onClick={bloodRequest}>
-                    Request Blood
-                </button><br />
-                {successMessage && <p className="success-message">{successMessage}</p>}
-                <br />
-                <button onClick={getSentRequests}>My Requests</button>
-            </div>
+                <div class="w-full flex flex-col items-center justify-center p-4 blood-request-form">
+                    <h1 class="text-xl font-semibold mb-4">Post Camp Details</h1>
+                    <input
+                        type="text"
+                        name="campName"
+                        id="campName"
+                        placeholder="Enter Camp Name"
+                        value={campName}
+                        onChange={(e) => setCampName(e.target.value)}
+                        class="w-full max-w-md mb-2 p-2 border border-gray-300 rounded"
+                    />
+                    <input
+                        type="text"
+                        name="campAddress"
+                        id="campAddress"
+                        placeholder="Enter the address of the camp"
+                        value={campAddress}
+                        onChange={(e) => setCampAddress(e.target.value)}
+                        class="w-full max-w-md mb-2 p-2 border border-gray-300 rounded"
+                    />
+                    <label htmlFor="startDate" class="mb-1 text-sm">from</label>
+                    <input
+                        type="date"
+                        name="startDate"
+                        id="startDate"
+                        value={startDate}
+                        onChange={(e) => setStartDate(e.target.value)}
+                        class="w-full max-w-xs mb-2 p-2 border border-gray-300 rounded"
+                    />
+                    <label htmlFor="endDate" class="mb-1 text-sm">to</label>
+                    <input
+                        type="date"
+                        name="endDate"
+                        id="endDate"
+                        value={endDate}
+                        onChange={(e) => setEndDate(e.target.value)}
+                        class="w-full max-w-xs mb-2 p-2 border border-gray-300 rounded"
+                    />
+                    <button
+                        onClick={handleSubmit}
+                        class="mt-4 px-4 py-2 bg-blue-500 text-white font-semibold rounded hover:bg-blue-600"
+                    >
+                        Submit
+                    </button>
+                </div>
+                {/* // blood request  */}
+                <div className="blood-request-form">
+                    <label htmlFor="bloodGroup" className="form-label">
+                        Enter the Blood Group in small case letters e.g., a+, b+, o-
+                    </label>
+                    <br />
+                    <select className='h-10 border-2 border-black' value={bloodGroup} onChange={(e) => setBloodGroup(e.target.value)}>
+                        <option value="">Select Your Blood Group</option>
+                        <option value="a+">A+</option>
+                        <option value="a-">A-</option>
+                        <option value="b+">B+</option>
+                        <option value="b-">B-</option>
+                        <option value="ab+">AB+</option>
+                        <option value="ab-">AB-</option>
+                        <option value="o+">O+</option>
+                        <option value="o-">O-</option>
+                        <option value="a2+">A2+</option>
+                        <option value="a2-">A2-</option>
+                        <option value="a2b+">A2B+</option>
+                        <option value="a2b-">A2B-</option>
+                        <option value="hh">HH (Bombay Blood Group)</option>
+                        <option value="inra">INRA</option>
+                    </select>
+                    <br />
+                    <label htmlFor="Name" className="form-label">
+                        Enter The Name
+                    </label>
+                    <br />
+                    <input
+                        type="text"
+                        id="name"
+                        placeholder="Name Of Requestor"
+                        className="form-input"
+                        onChange={(e) => setName(e.target.value)}
+                    />
+                    <br />
+                    <button className="form-button !bg-red-400 hover:!bg-red-500" onClick={bloodRequest}>
+                        Request Blood
+                    </button><br />
+                    {successMessage && <p className="success-message">{successMessage}</p>}
+                    <br />
+                    <button onClick={getSentRequests}>My Requests</button>
+                </div>
             </div>
 
 

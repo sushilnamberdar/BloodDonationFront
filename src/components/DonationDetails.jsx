@@ -12,6 +12,9 @@ const DonationDetails = ({ setToken }) => {
     const [phoneNumber, setPhoneNumber] = useState('');
     const [bloodGroup, setBloodGroup] = useState('');
     const location = useLocation();
+    const [age, setage] = useState(null);
+    const [weight, setweight] = useState(null);
+    const [gender, setGender] = useState('');
 
     const queryParams = new URLSearchParams(location.search);
     const donationId = queryParams.get('donationId');
@@ -38,12 +41,35 @@ const DonationDetails = ({ setToken }) => {
     }, [donationId]);
 
     const handleSubmit = async () => {
+
         const token = localStorage.getItem('token')
         const data = {
             requestId: donationId,
             phoneNumber,
             bloodGroup
         };
+
+        if (phoneNumber.length < 10) {
+            window.alert('Phone number must be at least 10 characters long.');
+            return;
+        }
+        
+        if (age < 16 || age>65) {
+            window.alert('You must be between 16 to 65 years old to donate.');
+            return;
+        }
+
+        if (gender === 'male' && weight < 50) {
+            window.alert('Males must weigh at least 50kg to donate.');
+            return;
+        }
+
+        if (gender === 'female' && weight < 50) {
+            window.alert('Females must weigh at least 50kg to donate.');
+            return;
+        }
+
+
 
         try {
             const response = await axios.post('http://localhost:7000/addDonorToTheRequest', data, {
@@ -116,11 +142,11 @@ const DonationDetails = ({ setToken }) => {
                     <img className='h-40' src={userlogo} />
                 </div>
             </div>
-            
+
             <br /><br />
             <div className='text-xl' >
-            <p>Fill Out The Form To Donate The Blood.</p>
-            <p>Your details will be shared with the Requestor so that he can contact you.</p>
+                <p>Fill Out The Form To Donate The Blood.</p>
+                <p>Your details will be shared with the Requestor so that he can contact you.</p>
             </div>
             <div className="flex flex-col items-center justify-center text-red-500 p-4 bg-gray-300">
                 <h2 className="text-xl font-bold mb-4">Submit Your Details</h2>
@@ -140,11 +166,47 @@ const DonationDetails = ({ setToken }) => {
                     <div className="flex flex-col">
                         <label htmlFor="phoneNumber" className="mb-2 font-semibold">Phone Number:</label>
                         <input
-                            type="text"
+                            type="number"
                             id="phoneNumber"
                             className="border-2 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
                             value={phoneNumber}
                             onChange={(e) => setPhoneNumber(e.target.value)}
+                        />
+                    </div>
+                    <div className="flex flex-col md:col-span-2">
+                        <label htmlFor="gender" className="mb-2 font-semibold">Gender</label>
+                        <select
+                            id="gender"
+                            className="border rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                            value={gender}
+                            onChange={(e) => setGender(e.target.value)}
+                        >
+                            <option value="">Select gender</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                        </select>
+                    </div>
+                    <div className="flex flex-col">
+                        <label htmlFor="weight" className="mb-2 font-semibold">Weight:</label>
+                        <input
+                            type="number"
+                            id="weight"
+                            className="border-2 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                            value={weight}
+                            onChange={(e) => setweight(e.target.value)}
+                        />
+                    </div>
+
+                    
+
+                    <div className="flex flex-col">
+                        <label htmlFor="phoneNumber" className="mb-2 font-semibold">Age:</label>
+                        <input
+                            type="number"
+                            id="age"
+                            className="border-2 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                            value={age}
+                            onChange={(e) => setage(e.target.value)}
                         />
                     </div>
 

@@ -2,11 +2,11 @@ import React, { useEffect } from 'react';
 import AOS from 'aos';
 import 'aos/dist/aos.css'; // Import AOS styles
 import logo from './images/lovepik-world-blood-donation-day-vector-illustration-blood-png-image_401398810_wh1200-removebg-preview 1.png';
-import leftsideimage from './images/new bolled.jpg';
+import leftsideimage from './images/bloodDonationLogin(1).jpg';
 import { Link } from 'react-router-dom';
 
 const AboutPage = () => {
-
+console.log(leftsideimage)
 
   useEffect(() => {
     AOS.init({ duration: 1000 });

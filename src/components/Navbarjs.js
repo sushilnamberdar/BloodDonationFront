@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 
-const Navbarjs = ({ setToken }) => {
+const Navbarjs = ({ setToken,setsignup}) => {
   const navigate = useNavigate();
   const [token, settoken] = useState('');
   const [navbarExpanded, setNavbarExpanded] = useState(false);
@@ -22,8 +22,17 @@ const Navbarjs = ({ setToken }) => {
   const handleLogout = () => {
     localStorage.removeItem('token');
     setToken('');
-    navigate('/');
+    navigate('/loginsignup');
   };
+  
+  const handleSignup = () => {
+    setsignup(true);
+    navigate('/loginsignup')
+  }
+  const handellogin = () => {
+    setsignup(false);
+    navigate('/loginsignup')
+  }
 
   // Close navbar on outside click
   useEffect(() => {
@@ -42,12 +51,12 @@ const Navbarjs = ({ setToken }) => {
   return (
     <Navbar
       expand="lg"
-      className="bg-body-tertiary border h-20 z-20 font-montserrat lg:text-lg"
+      className="bg-body-tertiary position-sticky top-0  border h-20 z-20 font-montserrat lg:text-lg"
       expanded={navbarExpanded}
       ref={navbarRef}
     >
       <Container fluid>
-        <Navbar.Brand as={Link} to="/home">
+        <Navbar.Brand as={Link} to="/">
           <img style={{ height: '40px' }} src={logo} alt="logo" />
         </Navbar.Brand>
         <Navbar.Toggle
@@ -58,7 +67,7 @@ const Navbarjs = ({ setToken }) => {
           <Nav className="ms-auto my-2 my-lg-0 bg-body-tertiary" style={{ maxHeight: '300px' }} navbarScroll>
             {token ? (
               <>
-                <Nav.Link as={Link} to="/bloodRequirement">Post Request Blood Requirement </Nav.Link>
+                <Nav.Link as={Link} to="/bloodRequirement"> Blood / Camps Request </Nav.Link>
                 <Nav.Link as={Link} to="/home">Home</Nav.Link>
                 <Nav.Link as={Link} to="/about">About</Nav.Link>
                 <Nav.Link>Services</Nav.Link>
@@ -66,8 +75,9 @@ const Navbarjs = ({ setToken }) => {
               </>
             ) : (
               <>
-                <Nav.Link as={Link} to="/" className=' !bg-indigo-500 px-5 text-white rounded-3xl !hover:bg-indigo-600'>Login</Nav.Link>
-                <Nav.Link as={Link} to="/">Sign Up</Nav.Link>
+               <Nav.Link as={Link} to="/">Home</Nav.Link>
+                <Nav.Link as={Link} to="/loginsignup" className=' !bg-indigo-500 px-5 text-white rounded-3xl !hover:bg-indigo-600' onClick={handellogin}>Login</Nav.Link>
+                <Nav.Link as={Link} to="/loginsignup" className=' !bg-red-400 px-4 ml-1 text-white rounded-3xl !hover:bg-indigo-600' onClick={handleSignup}>Sign Up</Nav.Link>
               </>
             )}
           </Nav>

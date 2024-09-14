@@ -1,69 +1,111 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useLocation } from 'react-router-dom'; // Import useLocation for query params
+import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 
 const DonorResponse = ({ setToken }) => {
   const [responses, setResponses] = useState([]);
   const [error, setError] = useState('');
-
-  const location = useLocation(); // Get the location object from react-router-dom
-
-
-    // for go to the top on reload the page
-    useEffect(() => {
-      window.scrollTo(0, 0);
-    }, []);
+  const [search, setSearch] = useState('');
+  const [requestNumber, setrequestNumber] = useState('');
+  const location = useLocation();
+  const navigate = useNavigate();
+  setToken(localStorage.getItem('token'));
 
   useEffect(() => {
-    // Extract requestNumber from the URL query parameters
+    window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
     const queryParams = new URLSearchParams(location.search);
     const requestNumber = queryParams.get('requestNumber');
-
+    setrequestNumber(requestNumber);
     if (requestNumber) {
       getSentRequests(requestNumber);
     } else {
       setError('No request number found in the URL.');
     }
-  }, [location.search]); // Dependency array to re-run if URL changes
+  }, [location.search]);
 
   const getSentRequests = async (requestNumber) => {
     const token = localStorage.getItem("token");
     try {
       const response = await axios.get(
         "http://localhost:7000/getDonorsResponses",
-
         {
           params: { requestId: requestNumber },
           headers: { Authorization: token }
         }
       );
       setResponses(response.data.donorsResponse);
-      console.log("response is this for sent requests =>", response.data.donorsResponse);
     } catch (error) {
       console.error('Request failed:', error);
       setError('Failed to fetch donor responses. Please try again.');
     }
   };
 
+  const handleBloodReceived = (donorId, phoneNumber) => {
+    console.log('Blood received from donor with ID:', donorId);
+    console.log('Donor Phone Number:', phoneNumber);
+    console.log(requestNumber);
+    const token = localStorage.getItem('token');
+    try {
+      const response = axios.post('http://localhost:7000/approveDonation',
+        { donorId, donationId: requestNumber },
+        {
+          headers: { Authorization: token }
+        }
+      )
+    } catch (error) {
+      console.log(error)
+    }
+    
+    navigate('/bloodRequirement');
+  };
+
   return (
-    <div className="min-h-screen">
-      <h2>Donor Responses</h2>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      {responses.length > 0 ? (
-        <ul>
-          {responses.map((response, index) => (
-            <li key={index}>
-              <p>Donor ID: {response.donorId}</p>
-              <p>Phone Number: {response.phoneNumber}</p>
-              <p>Blood Group: {response.bloodGroup}</p>
-              <br /><br /><br />
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p>No responses available</p>
-      )}
-    </div>
+    <>
+      <div className="flex flex-col items-center justify-center p-4 md:p-8">
+        <div>
+          <h2 className="text-2xl font-bold mb-4">Donor Responses</h2>
+          <input
+            type="search"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="Search by phone number"
+            className="w-full border-2 p-7 p-2 pl-10 text-sm text-gray-700"
+          />
+        </div>
+      </div>
+      {error && <p className="text-red-500">{error}</p>}
+      <div className="flex items-center justify-between flex-col w-full">
+        {responses.length > 0 ? (
+          <ul className="list-none flex flex-wrap gap-3 mt-4 mb-4">
+            {responses
+              .filter((response) => {
+                const phoneNumber = response.phoneNumber ? response.phoneNumber.toString() : '';
+                return phoneNumber.includes(search);
+              })
+              .map((response, index) => (
+                <div className="bg-white shadow-md rounded-md p-4 md:p-6 lg:p-8 border border-gray-200 overflow-hidden" key={index}>
+                  <li className="mb-4">
+                    <p className="text-lg">Donor ID: {response.donorId}</p>
+                    <p className="text-lg">Phone Number: {response.phoneNumber}</p>
+                    <p className="text-lg">Blood Group: {response.bloodGroup}</p>
+                    <button
+                      className="bg-red-500 px-4 py-2 rounded-2xl text-white text-xl font-serif"
+                      onClick={() => handleBloodReceived(response.donorId, response.phoneNumber)}
+                    >
+                      Blood Received
+                    </button>
+                  </li>
+                </div>
+              ))}
+          </ul>
+        ) : (
+          <p className="text-gray-500">No responses available</p>
+        )}
+      </div>
+    </>
   );
 };
 
