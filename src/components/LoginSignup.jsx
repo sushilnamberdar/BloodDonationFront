@@ -10,6 +10,7 @@ import login2 from "./images/bloodDonationLogin2.jpg"
 import login3 from './images/bloodDonationLogin3.jpg'
 import login4 from "./images/bloodDonationLogin4.jpg"
 import login5 from './images/bloodDonationLogin5.jpg'
+import { BaseUrl } from './Util/util';
 
 
 const images = [left, login1, login2, login3, login4, login5];
@@ -71,7 +72,7 @@ const [currentIndex, setCurrentIndex] = useState(0);
 
   const handleLogin = async () => {
     try {
-      const response = await axios.post('http://localhost:7000/loginUser', { phoneNumber, password,location });
+      const response = await axios.post(`${BaseUrl}loginUser`, { phoneNumber, password,location });
       localStorage.setItem('token', response.data.token);
       setToken(response.data.token);
       console.log(response);
@@ -83,7 +84,7 @@ const [currentIndex, setCurrentIndex] = useState(0);
 
   const handleSignup = async () => {
     try {
-      const response = await axios.post('http://localhost:7000/addUser', { phoneNumber, password, bloodGroup });
+      const response = await axios.post(`${BaseUrl}addUser`, { phoneNumber, password, bloodGroup });
       console.log(response.data.newUser);
     } catch (error) {
       console.error('Signup failed:', error);
@@ -132,7 +133,7 @@ useEffect(() => {
     {/* Right Side - Form Wrapper with Border */}
     <div className="flex flex-1 flex-col items-center justify-center px-6 py-12 lg:px-8 mt-1 ">
       {/* Border Container */}
-      <div className="lg:w-1/2 bg-white border-2 xl:mt-[-100px] lg:mt-[-100px] border-gray-300 rounded-lg p-6 shadow-md" data-aos="fade-left">
+      <div className="lg:w-1/2 bg-white border-2 xl:mt-[-200px] lg:mt-[-100px] border-gray-300 rounded-lg p-6 shadow-md" data-aos="fade-left">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm" data-aos="zoom-in">
           <img alt="Your Company" src={logo} className="mx-auto h-10 w-auto" />
           <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
@@ -259,6 +260,9 @@ useEffect(() => {
                 </button>
               </div>
             )}
+            <div>
+            <Link to='/hospitalLoginSignup'>Hospital Account</Link>
+            </div>
           </div>
         </div>
       </div>

@@ -16,6 +16,13 @@ import Navbarjs from './components/Navbarjs';
 import Footer from './components/Footer';
 import AboutPage from './components/AboutPage';
 import WelcomePage from './components/WelcomePage';
+import HospitalLoginSignup from './components/Hospitalpages/HospitalLoginSignup';
+import HospitalDashboard from './components/Hospitalpages/HospitalDashboard';
+import Donors from './components/Hospitalpages/Donors';
+import Events from './components/Hospitalpages/Events';
+import Inventory from './components/Hospitalpages/Inventory';
+import Profile from './components/Hospitalpages/Profile';
+import HospitalDetails from './components/Hospitalpages/HospitalDetails';
 function App() {
 
   const [token, setToken] = useState('');
@@ -48,9 +55,16 @@ function App() {
           <Route path="/donationDetails" element={token ? <DonationDetails setToken = {setToken}/> : <Navigate to="/" />} />
           <Route path="/donorsResponse" element={ <DonorResponse setToken = {setToken}/>} />
           <Route path="/userDetails" element={adminToken ? <UserDetails/> : <Navigate to="/adminLogin" />} />
+          <Route  path='/hospitalDetails' element={adminToken?<HospitalDetails/>:<Navigate to='/adminLogin'/>}/>
           <Route path="/donorsResponseAdmin" element={ <DonorResponseAdmin/>} />
           <Route path='/about' element={<AboutPage/>}/>
           <Route path='/' element={<WelcomePage/>}/>
+          <Route path='/hospitalLoginSignup' element={<HospitalLoginSignup/>} />
+          <Route path='/hospitalDashboard' element={<HospitalDashboard/>}/>
+          <Route path='/hospitaldonors' element={<Donors/>} />
+          <Route path='/hospitalevents' element={<Events/>}  />
+          <Route path='/hospitalinventory' element={<Inventory/>}  />
+          <Route path='/hospitalprofile' element={<Profile/>}/>
         </Routes>
       </div>
       { adminToken? "" : <Footer/>}

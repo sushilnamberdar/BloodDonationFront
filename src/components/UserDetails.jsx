@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { BaseUrl } from './Util/util';
 
 const UserDetails = () => {
     const [requestId, setRequestId] = useState('');
@@ -19,7 +20,7 @@ const UserDetails = () => {
             if (requestId) {
                 const token = localStorage.getItem('adminToken');
                 try {
-                    const response = await axios.get('http://localhost:7000/userDetails', {
+                    const response = await axios.get(`${BaseUrl}userDetails`, {
                         headers: { Authorization: token },
                         params: { requestId: requestId }
                     });

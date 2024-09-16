@@ -4,6 +4,7 @@ import logo from './images/iinsaf.png';  // Ensure the correct path for the logo
 import loginImage from './images/bloodDonationLogin1.jpg'; // Add an image on the left side
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import { BaseUrl } from './Util/util';
 
 export default function AdminLogSign({ setAdminToken }) {
     const [phoneNumber, setPhoneNumber] = useState('');
@@ -16,7 +17,7 @@ export default function AdminLogSign({ setAdminToken }) {
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:7000/adminLogin', { phoneNumber, password });
+            const response = await axios.post(`${BaseUrl}adminLogin`, { phoneNumber, password });
             localStorage.setItem('adminToken', response.data.token);
             setAdminToken(response.data.token);
             console.log(response);
@@ -27,8 +28,8 @@ export default function AdminLogSign({ setAdminToken }) {
     };
 
     return (
-        <div className="flex min-h-screen flex-1 flex-col items-center justify-center px-6 py-12 lg:px-8">
-            <div className="flex flex-row border-2 border-gray-300 rounded-lg shadow-md " data-aos="fade-up">
+        <div className="flex min-h-screen items-center justify-center px-6 py-12 lg:px-8 bg-gray-100">
+            <div className="flex flex-col md:flex-row border-2 border-gray-300 rounded-lg shadow-md bg-white">
                 
                 {/* Left side image */}
                 <div className="hidden md:block md:w-1/2 lg:w-1/2 h-full">
@@ -40,7 +41,7 @@ export default function AdminLogSign({ setAdminToken }) {
                 </div>
 
                 {/* Login form section */}
-                <div className="flex flex-col justify-center items-center sm:w-full md:w-1/2 lg:w-1/2 sm:max-w-sm p-4 h-full">
+                <div className="flex flex-col justify-center items-center sm:w-full md:w-1/2 lg:w-1/2 p-4">
                     <div className="sm:mx-auto sm:w-full sm:max-w-sm" data-aos="zoom-in"> 
                         <img
                             alt="Logo"

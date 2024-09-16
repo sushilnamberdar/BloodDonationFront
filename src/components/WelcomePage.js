@@ -65,6 +65,7 @@ const WelcomePage = () => {
 
     useEffect(() => {
         AOS.init({ duration: 1000 });
+        window.scrollTo(0, 0);
     }, []);
 
     useEffect(() => {

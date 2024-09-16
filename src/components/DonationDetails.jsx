@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useLocation } from 'react-router-dom';
 import userlogo from './images/User.png'
+import { BaseUrl } from './Util/util';
 const bloodGroups = [
     'A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-', 'HH (Bombay Blood Group)', 'INRA'
 ];
@@ -23,7 +24,7 @@ const DonationDetails = ({ setToken }) => {
         const getDonationDetails = async () => {
             try {
                 const token = localStorage.getItem("token")
-                const response = await axios.get('http://localhost:7000/donatersDetail', {
+                const response = await axios.get(`${BaseUrl}donatersDetail`, {
                     params: { donaterId: donationId },
                     headers: { Authorization: token }
                 });
@@ -72,17 +73,27 @@ const DonationDetails = ({ setToken }) => {
 
 
         try {
-            const response = await axios.post('http://localhost:7000/addDonorToTheRequest', data, {
+            const response = await axios.post(`${BaseUrl}addDonorToTheRequest`, data, {
                 headers: { Authorization: token }
             });
-            console.log(response);
-            window.alert('Data submitted successfully');
+
+            // Show the message returned from the server
+            const message = response.data.message;
+            console.log(message)
+            window.alert(`${message} ,  ${response.data.previousDonationDate}`);
+
+            // Clear input fields after successful submission
             setName('');
             setPhoneNumber('');
             setBloodGroup('');
         } catch (error) {
-            console.log(error);
-            window.alert('Failed to submit data');
+            // Check if there's an error message in the response
+            if (error.response && error.response.data && error.response.data.message) {
+                window.alert(error.response.data.message);
+            } else {
+                window.alert('Failed to submit data');
+            }
+            console.error('Error submitting data:', error);
         }
     };
 
