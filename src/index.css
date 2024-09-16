@@ -19,3 +19,18 @@
     animation: scroll 20s linear infinite;
   }
   
+
+  /* App.css */
+  @keyframes marquee {
+    0% {
+      transform: translateX(100%);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+  
+  .marquee {
+    animation: marquee 10s linear infinite; /* Animation duration and type */
+  }
+  

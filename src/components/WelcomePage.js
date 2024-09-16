@@ -18,6 +18,7 @@ import donor7 from './images/donarimage/doner4.webp';
 import bloodDonationImage from './images/welcomepage1.jpg';
 
 import Carousel from 'react-bootstrap/Carousel';
+import { Link } from 'react-router-dom';
 
 const testimonials = [
     {
@@ -84,9 +85,30 @@ const WelcomePage = () => {
         }
     }, [currentIndex]);
 
+
+
+    
+    const Marquee = () => {
+      return (
+        <div className="flex w-full">
+          <span className="inline-block text-red-500 marquee">
+            Upcoming Events
+          </span>
+        </div>
+      );
+    }
+
+
+
     return (
         <div className="bg-gray-100 p-4 overflow-x-hidden">
+            <marquee>
+                <a href='#upcomingevents'>
+            < Marquee/>
+            </a>
+            </marquee>
             <div className="container mx-auto mt-12">
+            
                 <div className="flex flex-col lg:flex-row items-center flex-wrap">
 
                     {/* Text Section */}
@@ -232,7 +254,7 @@ const WelcomePage = () => {
                     </div>
                 </section>
 
-                <section className="my-12 lg:my-20">
+                <section className="my-12 lg:my-20" id='upcomingevents'>
                     <div className="container mx-auto px-4">
                         <h3 className="text-3xl font-bold text-center text-gray-800 mb-8" data-aos="fade-up">
                             Upcoming Events
