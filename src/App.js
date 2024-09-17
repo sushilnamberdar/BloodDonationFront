@@ -2,6 +2,8 @@
 
 import { Navigate, Route, Routes } from 'react-router-dom';
 import './App.css';
+import { ToastContainer, toast } from 'react-toastify';
+
 import Hero from './components/Hero';
 import LoginSignup from './components/LoginSignup';
 import { useState, useEffect } from 'react';
@@ -18,11 +20,10 @@ import AboutPage from './components/AboutPage';
 import WelcomePage from './components/WelcomePage';
 import HospitalLoginSignup from './components/Hospitalpages/HospitalLoginSignup';
 import HospitalDashboard from './components/Hospitalpages/HospitalDashboard';
-import Donors from './components/Hospitalpages/Donors';
-import Events from './components/Hospitalpages/Events';
-import Inventory from './components/Hospitalpages/Inventory';
 import Profile from './components/Hospitalpages/Profile';
 import HospitalDetails from './components/Hospitalpages/HospitalDetails';
+import AdminManageUsers from './components/AdminManageUsers';
+import HospitalDonorsResponsesDetails from './components/Hospitalpages/HospitalDonorsResponses';
 function App() {
 
   const [token, setToken] = useState('');
@@ -44,8 +45,9 @@ function App() {
 
   return (
     <div className="App">
-    {adminToken? "" : <Navbarjs setsignup={setsignup} setToken={setToken}/>}
+     <Navbarjs setsignup={setsignup} setToken={setToken}/>
       <div>    
+      <ToastContainer />
         <Routes>
         <Route path="/loginsignup" element={token ? <Navigate to="/home"/> : <LoginSignup setsignup={setsignup} signup={signup} setToken={setToken} />} />
           <Route path="/admin" element={adminToken ? <AdminPanel setAdminToken={setAdminToken}/> : <Navigate to="/adminLogin" />} />
@@ -61,13 +63,11 @@ function App() {
           <Route path='/' element={<WelcomePage/>}/>
           <Route path='/hospitalLoginSignup' element={<HospitalLoginSignup/>} />
           <Route path='/hospitalDashboard' element={<HospitalDashboard/>}/>
-          <Route path='/hospitaldonors' element={<Donors/>} />
-          <Route path='/hospitalevents' element={<Events/>}  />
-          <Route path='/hospitalinventory' element={<Inventory/>}  />
-          <Route path='/hospitalprofile' element={<Profile/>}/>
+          <Route path='/manageUsers' element={<AdminManageUsers/>}/>
+          <Route path='/HospitalDonorsResponses' element={<HospitalDonorsResponsesDetails/>} />
         </Routes>
       </div>
-      { adminToken? "" : <Footer/>}
+       <Footer/>
     </div>
   );
 }

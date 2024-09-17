@@ -5,8 +5,17 @@ import 'aos/dist/aos.css';
 import logo from '../images/User.png';  // Replace with hospital logo if available
 import { useNavigate } from 'react-router-dom';  // To redirect after login
 import { BaseUrl } from '../Util/util';
-
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { CgDanger } from 'react-icons/cg';
 const HospitalLoginSignup = () => {
+  
+
+  const [signup, setSignup] = useState(false);
+  const [htoken, setToken] = useState(localStorage.getItem('htoken') || "");
+  const navigate = useNavigate();
+  const [location, setLocation] = useState({ longitude: null, latitude: null });
+
   const [formData, setFormData] = useState({
     name: '',
     address: {
@@ -19,9 +28,9 @@ const HospitalLoginSignup = () => {
       phone: '',
       email: ''
     },
-    coordinates: {
-      latitude: '',
-      longitude: ''
+    location: {
+      latitude:null,
+      longitude:null
     },
     hasBloodDonationCenter: false,
     facilities: [],
@@ -29,11 +38,6 @@ const HospitalLoginSignup = () => {
     specialInstructions: '',
     password: ''
   });
-
-  const [signup, setSignup] = useState(false);
-  const [htoken, setToken] = useState(localStorage.getItem('htoken') || "");
-  const navigate = useNavigate();
-
   // Initialize animations
   useEffect(() => {
     Aos.init({ duration: 1000, once: true });
@@ -46,10 +50,65 @@ const HospitalLoginSignup = () => {
     }
   }, [htoken, navigate]);
 
+  useEffect(() => {
+    const getLocation = () => {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    const { latitude, longitude } = position.coords;
+                    setLocation({
+                        longitude,
+                        latitude
+                    });
+                },
+                (error) => {
+                    switch (error.code) {
+                        case error.PERMISSION_DENIED:
+                            alert("Please enable location permissions for this app.");
+                            break;
+                        case error.POSITION_UNAVAILABLE:
+                            alert("Location information is unavailable. Please try again later.");
+                            break;
+                        case error.TIMEOUT:
+                            alert("The request to get your location timed out. Please try again.");
+                            break;
+                        case error.UNKNOWN_ERROR:
+                            alert("An unknown error occurred. Please try again.");
+                            break;
+                        default:
+                            console.log("There is no error is fetching location");
+                    }
+                }
+            );
+        } else {
+            alert('Geolocation is not supported by this browser');
+        }
+    };
+    getLocation();
+}, [])
+
+
+ // Update formData coordinates when location changes
+ useEffect(() => {
+  if (location.latitude && location.longitude) {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      location: {
+        latitude: location.latitude,
+        longitude: location.longitude
+      }
+    }));
+  }
+}, [location]);
+
+
+
   // Handle login logic
   const handleLogin = async () => {
+
+   
     try {
-      const response = await axios.post(`${BaseUrl}loginHospital`, { email: formData.contact.email, password: formData.password }); // Use email and password for login
+      const response = await axios.post(`${BaseUrl}loginHospital`, { contact:formData.contact, password: formData.password }); // Use email and password for login
       localStorage.setItem('htoken', response.data.token);  // Store htoken in localStorage
       setToken(response.data.token);  // Update state with token
       navigate('/hospitalDashboard');  // Redirect after successful login
@@ -61,12 +120,19 @@ const HospitalLoginSignup = () => {
 
   // Handle signup logic
   const handleSignup = async () => {
+
+    if (location.longitude === null || location.latitude === null) {
+      toast.error('Location not set. Please enable location services and try again.');
+      return; // Stop function execution if location is null
+    }
     try {
-      const response = await axios.post(`${BaseUrl}hospitalSignup`, formData);  // Pass the entire formData object
-      handleLogin();  // Auto-login after signup
+      const response = await axios.post(`${BaseUrl}hospitalSignup`, formData).then((response)=> {
+        console.log(response.data)
+        toast.success(`${response.data.message} status: ${response.data.data.status}`);
+      });  // Pass the entire formData object
     } catch (error) {
       console.error('Signup failed:', error);
-      alert('Signup failed');
+      toast.error('Signup failed: '  + error.response.data.message);
     }
   };
 
@@ -101,33 +167,31 @@ const HospitalLoginSignup = () => {
     }));
   };
 
-  const handleCoordinatesChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prevData => ({
-      ...prevData,
-      coordinates: {
-        ...prevData.coordinates,
-        [name]: value
-      }
-    }));
-  };
+  // const handleCoordinatesChange = (e) => {
+  //   const { name, value } = e.target;
+  //   setFormData(prevData => ({
+  //     ...prevData,
+  //     coordinates: {
+  //       ...prevData.coordinates,
+  //       [name]: value
+  //     }
+  //   }));
+  // };
 
-  const handleOperatingHoursChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prevData => ({
-      ...prevData,
-      operatingHours: {
-        ...prevData.operatingHours,
-        [name]: value
-      }
-    }));
-  };
-
+  // const handleOperatingHoursChange = (e) => {
+  //   const { name, value } = e.target;
+  //   setFormData(prevData => ({
+  //     ...prevData,
+  //     operatingHours: {
+  //       ...prevData.operatingHours,
+  //       [name]: value
+  //     }
+  //   }));
+  // };
   // If htoken exists, show dashboard message (or redirect could be handled here)
   if (htoken) {
     return <p>Loading your dashboard...</p>;  // Optionally, render something or handle with `navigate`
   }
-console.log(formData)
   return (
     <div className="min-h-screen flex flex-col bg-gray-100">
       {/* Centered Form */}
@@ -285,7 +349,7 @@ console.log(formData)
               </div>
 
               {/* Phone Number - Only for Signup */}
-              {signup && (
+              { (
                 <div data-aos="fade-up">
                   <label htmlFor="phone" className="block text-sm font-medium leading-6 text-gray-900">
                     Phone Number
@@ -311,60 +375,7 @@ console.log(formData)
                 </div>
               )}
 
-              {/* Coordinates */}
-              {signup && (
-                <>
-                  <div data-aos="fade-up">
-                    <label htmlFor="latitude" className="block text-sm font-medium leading-6 text-gray-900">
-                      Latitude
-                    </label>
-                    <div className="mt-2">
-                      <input
-                        id="latitude"
-                        name="latitude"
-                        type="number"
-                        step="any"
-                        required
-                        placeholder="Enter Latitude"
-                        value={formData.coordinates.latitude}
-                        onChange={(e) =>
-                          setFormData((prevData) => ({
-                            ...prevData,
-                            coordinates: { ...prevData.coordinates, latitude: e.target.value },
-                          }))
-                        }
-                        className="block w-full rounded-md py-2 px-2 text-gray-900 shadow-sm"
-                      />
-
-                    </div>
-                  </div>
-
-                  <div data-aos="fade-up">
-                    <label htmlFor="longitude" className="block text-sm font-medium leading-6 text-gray-900">
-                      Longitude
-                    </label>
-                    <div className="mt-2">
-                      <input
-                        id="longitude"
-                        name="longitude"
-                        type="number"
-                        step="any"
-                        required
-                        placeholder="Enter Longitude"
-                        value={formData.coordinates.longitude}
-                        onChange={(e) =>
-                          setFormData((prevData) => ({
-                            ...prevData,
-                            coordinates: { ...prevData.coordinates, longitude: e.target.value },
-                          }))
-                        }
-                        className="block w-full rounded-md py-2 px-2 text-gray-900 shadow-sm"
-                      />
-
-                    </div>
-                  </div>
-                </>
-              )}
+        
               {/* Website */}
               {signup && (
                 <div data-aos="fade-up">

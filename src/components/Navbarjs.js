@@ -11,16 +11,24 @@ import { useNavigate } from 'react-router-dom';
 const Navbarjs = ({ setToken,setsignup}) => {
   const navigate = useNavigate();
   const [token, settoken] = useState('');
+  const [htoken,sethtoken]= useState('');
+  const [atoken , setatoken]=useState('');
   const [navbarExpanded, setNavbarExpanded] = useState(false);
   const navbarRef = useRef(null);
 
   useEffect(() => {
     const token = localStorage.getItem('token');
+    const htoken = localStorage.getItem('htoken');
+    const atoken = localStorage.getItem('adminToken')
     settoken(token);
+    sethtoken(htoken);
+    setatoken(atoken);
   },);
 
   const handleLogout = () => {
     localStorage.removeItem('token');
+    localStorage.removeItem('htoken');
+    localStorage.removeItem('adminToken');
     setToken('');
     navigate('/loginsignup');
   };
@@ -51,7 +59,7 @@ const Navbarjs = ({ setToken,setsignup}) => {
   return (
     <Navbar
       expand="lg"
-      className="bg-body-tertiary position-sticky top-0  border h-20 z-20 font-montserrat lg:text-lg"
+      className="bg-body-tertiary position-sticky top-0 border h-20 z-20 font-montserrat lg:text-lg"
       expanded={navbarExpanded}
       ref={navbarRef}
     >
@@ -65,19 +73,37 @@ const Navbarjs = ({ setToken,setsignup}) => {
         />
         <Navbar.Collapse id="navbarScroll">
           <Nav className="ms-auto my-2 my-lg-0 bg-body-tertiary" style={{ maxHeight: '300px' }} navbarScroll>
-            {token ? (
+            {htoken ? (
               <>
-                <Nav.Link as={Link} to="/bloodRequirement"> Blood / Camps Request </Nav.Link>
+                {/* Links to show when htoken is available */}
+                <Nav.Link as={Link} to="/hospitaldashboard">Hospital Dashboard</Nav.Link>
+                <button className='bg-indigo-500 px-5 text-white rounded-3xl hover:bg-indigo-600' onClick={handleLogout}>Logout</button>
+              </>
+            ) : atoken ? (
+              <>
+                {/* Links to show when atoken is available */}
+                <Nav.Link as={Link} to="/home">Home</Nav.Link>
+                <Nav.Link as={Link} to="/admin"> Admin Home</Nav.Link>
+
+                <Nav.Link as={Link} to="/manageUsers">Manage Users</Nav.Link>
+                <button className='bg-indigo-500 px-5 text-white rounded-3xl hover:bg-indigo-600' onClick={handleLogout}>Logout</button>
+              </>
+            ) : token ? (
+              <>
+                {/* Links to show when token is available but htoken and atoken are not */}
+                <Nav.Link as={Link} to="/bloodRequirement">Blood / Camps Request</Nav.Link>
                 <Nav.Link as={Link} to="/home">Home</Nav.Link>
                 <Nav.Link as={Link} to="/about">About</Nav.Link>
-                <Nav.Link>Services</Nav.Link>
-                <button className=' bg-indigo-500 px-5 text-white rounded-3xl hover:bg-indigo-600' onClick={handleLogout}>Logout</button>
+                <Nav.Link as={Link} to="/services">Services</Nav.Link>
+                <button className='bg-indigo-500 px-5 text-white rounded-3xl hover:bg-indigo-600' onClick={handleLogout}>Logout</button>
               </>
             ) : (
               <>
-               <Nav.Link as={Link} to="/">Home</Nav.Link>
-                <Nav.Link as={Link} to="/loginsignup" className=' !bg-indigo-500 px-5 text-white rounded-3xl !hover:bg-indigo-600' onClick={handellogin}>Login</Nav.Link>
-                <Nav.Link as={Link} to="/loginsignup" className=' !bg-red-400 px-4 ml-1 text-white rounded-3xl !hover:bg-indigo-600' onClick={handleSignup}>Sign Up</Nav.Link>
+                {/* Links to show when neither token, htoken, nor atoken are available */}
+                <Nav.Link as={Link} to="/">Home</Nav.Link>
+                <Nav.Link as={Link} to='/hospitalLoginSignup' className='!bg-indigo-500 px-5 text-white rounded-3xl !hover:bg-indigo-600 mr-1'>Hospital Login</Nav.Link>
+                <Nav.Link as={Link} to="/loginsignup" className='!bg-indigo-500 px-5 text-white rounded-3xl !hover:bg-indigo-600' onClick={handellogin}>Login</Nav.Link>
+                <Nav.Link as={Link} to="/loginsignup" className='!bg-red-400 px-4 ml-1 text-white rounded-3xl !hover:bg-indigo-600' onClick={handleSignup}>Sign Up</Nav.Link>
               </>
             )}
           </Nav>
@@ -85,6 +111,7 @@ const Navbarjs = ({ setToken,setsignup}) => {
       </Container>
     </Navbar>
   );
+  
 };
 
 export default Navbarjs;

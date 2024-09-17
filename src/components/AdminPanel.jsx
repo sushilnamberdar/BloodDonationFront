@@ -88,128 +88,120 @@ function AdminPanel({ setAdminToken }) {
         }
     }
 
-    const adminLogOut = () => {
-        localStorage.clear();
-        setAdminToken('');
-    }
 
     return (
-        <div className="h-screen flex flex-col">
-            {/* Top bar with title and logout button */}
-            <div className="flex justify-between items-center p-4 border-b">
-                <h2>Pending User Requests</h2>
-                <button
-                    className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-                    onClick={adminLogOut}
-                >
-                    Log Out
-                </button>
-            </div>
-
-            {/* Main content */}
-            <div className="p-4 flex-grow">
-                {pendingUsers.length === 0 ? (
-                    <p>No Requests are pending</p>
-                ) : (
-                    <ul>
-                        {pendingUsers.map(user => (
-                            <li key={user._id} className="mb-4 flex items-center justify-center">
-                                <div className="flex gap-4 flex-wrap">
-                                    <p>Phone Number - {user.phoneNumber}</p>
-
-                                    <button
-                                        className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
-                                        onClick={() => handleApprove(user._id)}
-                                    >
-                                        Approve
-                                    </button>
-                                    <button
-                                        className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-                                        onClick={() => handleReject(user._id)}
-                                    >
-                                        Reject
-                                    </button>
-                                </div>
-                            </li>
-                        ))}
-                    </ul>
-                )}
-
-
-                <div className="p-4 flex-grow">
-                    {pendingHospital.length === 0 ? (
-                        <p>No Requests are pending</p>
-                    ) : (
-                        <ul>
-                            {pendingHospital.map(hospital => (
-                                <li key={hospital._id} className="mb-4 flex items-center justify-center">
-                                    <div className="flex gap-4 flex-wrap">
-                                        {/* Display all the fields from the hospital object */}
-                                        <p><strong>Name:</strong> {hospital.name}</p>
-                                        <p><strong>Address:</strong> {hospital.address.street}, {hospital.address.city}, {hospital.address.state}, {hospital.address.postalCode}</p>
-                                        <p><strong>Phone Number:</strong> {hospital.contact.phone}</p>
-                                        <p><strong>Email:</strong> {hospital.contact.email}</p>
-                                        <p><strong>Coordinates:</strong> Latitude: {hospital.coordinates.latitude}, Longitude: {hospital.coordinates.longitude}</p>
-                                        <p><strong>Facilities:</strong> {hospital.facilities.length > 0 ? hospital.facilities.join(', ') : 'None'}</p>
-                                        <p><strong>Has Blood Donation Center:</strong> {hospital.hasBloodDonationCenter ? 'Yes' : 'No'}</p>
-                                        <p><strong>Operating Hours:</strong> Monday: {hospital.operatingHours.monday}, Tuesday: {hospital.operatingHours.tuesday}, Wednesday: {hospital.operatingHours.wednesday}, Thursday: {hospital.operatingHours.thursday}, Friday: {hospital.operatingHours.friday}, Saturday: {hospital.operatingHours.saturday}, Sunday: {hospital.operatingHours.sunday}</p>
-                                        <p><strong>Special Instructions:</strong> {hospital.specialInstructions}</p>
-                                        <p><strong>Status:</strong> {hospital.status}</p>
-                                        <p><strong>Website:</strong> {hospital.website}</p>
-
-                                        {/* Action buttons */}
-                                        <button
-                                            className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
-                                            onClick={() => handleHospitalApprove(hospital._id)}
-                                        >
-                                            Approve
-                                        </button>
-                                        <button
-                                            className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-                                            onClick={() => handleRejectHospital(hospital._id)}
-                                        >
-                                            Reject
-                                        </button>
-                                    </div>
-                                </li>
-                            ))}
-                        </ul>
-                    )}
-                </div>
-
-                <h2 className="mt-8">Registered Users</h2>
-                <ul className="admin-registeredUsers">
-                    {registeredUsers.map(user => (
-                        <Link to={`/userDetails?userId=${user._id}`} key={user._id}>
-                            <li className="mb-4 border-b pb-4">
-                                <p>UserId - {user._id}</p>
-                                <p>Blood Group - {user.bloodGroup}</p>
-                                <p>Joined On - {new Date(user.joinedOn).toLocaleDateString()}</p>
-                                <p>Phone Number - {user.phoneNumber}</p>
-                            </li>
-                        </Link>
-                    ))}
+        <div className="min-h-screen flex flex-col bg-gray-50">
+          {/* Top bar with title */}
+          <div className="flex justify-between items-center p-4 border-b bg-red-600 text-white">
+            <h2 className="text-xl font-semibold">Admin Panel - Pending User Requests</h2>
+          </div>
+      
+          {/* Main content */}
+          <div className="p-4 flex-grow overflow-y-auto">
+            {/* Pending Users */}
+            <section className="mb-8">
+              <h3 className="text-lg font-semibold mb-4 text-red-700">Pending User Requests</h3>
+              {pendingUsers.length === 0 ? (
+                <p className="text-gray-500">No pending requests.</p>
+              ) : (
+                <ul className="space-y-4">
+                  {pendingUsers.map((user) => (
+                    <li key={user._id} className="bg-white shadow-lg rounded-lg p-4 flex flex-wrap justify-between items-center border border-red-200">
+                      <p className="text-gray-700 font-medium">Phone: {user.phoneNumber}</p>
+                      <div className="flex gap-2">
+                        <button
+                          className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded shadow"
+                          onClick={() => handleApprove(user._id)}
+                        >
+                          Approve
+                        </button>
+                        <button
+                          className="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded shadow"
+                          onClick={() => handleReject(user._id)}
+                        >
+                          Reject
+                        </button>
+                      </div>
+                    </li>
+                  ))}
                 </ul>
-
-
-                <h2 className="mt-8">Registered Hospital</h2>
-                <ul className="admin-registeredUsers">
-                    {registeredHospital.map(hospital => (
-                        <Link to={`/hospitalDetails?userId=${hospital._id}`} key={hospital._id}>
-                            
-                            <li className="mb-4 border-b pb-4">
-                            <p>Hospital Name  - {hospital.name}</p>
-                                <p>Hospital Id - {hospital._id}</p>
-                                <p>Joined On - {new Date(hospital.joinedOn).toLocaleDateString()}</p>
-                                <p>Phone Number - {hospital.contact.phone}</p>
-                            </li>
-                        </Link>
-                    ))}
+              )}
+            </section>
+      
+            {/* Registered Users */}
+            <section className="mb-8">
+              <h3 className="text-lg font-semibold mb-4 text-red-700">Registered Users</h3>
+              <div className="flex flex-wrap items-center justify-center gap-4">
+                {registeredUsers.map((user) => (
+                  <Link to={`/userDetails?userId=${user._id}`} key={user._id} className="w-full sm:w-1/2 lg:w-1/3">
+                    <li className="bg-white shadow-lg rounded-lg p-4 border border-red-200 hover:bg-gray-100 transition">
+                      <p><strong>ID:</strong> {user._id}</p>
+                      <p><strong>Blood Group:</strong> {user.bloodGroup}</p>
+                      <p><strong>Joined:</strong> {new Date(user.joinedOn).toLocaleDateString()}</p>
+                      <p><strong>Phone:</strong> {user.phoneNumber}</p>
+                    </li>
+                  </Link>
+                ))}
+              </div>
+            </section>
+      
+            {/* Pending Hospital Requests */}
+            <section className="mb-8">
+              <h3 className="text-lg font-semibold mb-4 text-red-700">Pending Hospital Requests</h3>
+              {pendingHospital.length === 0 ? (
+                <p className="text-gray-500">No pending requests.</p>
+              ) : (
+                <ul className="space-y-4">
+                  {pendingHospital.map((hospital) => (
+                    <li key={hospital._id} className="bg-white shadow-lg rounded-lg p-4 flex flex-wrap justify-between items-start border border-red-200">
+                      <div className="w-full md:w-auto">
+                        <p><strong>Name:</strong> {hospital.name}</p>
+                        <p><strong>Address:</strong> {hospital.address.street}, {hospital.address.city}, {hospital.address.state}, {hospital.address.postalCode}</p>
+                        <p><strong>Phone:</strong> {hospital.contact.phone}</p>
+                        <p><strong>Email:</strong> {hospital.contact.email}</p>
+                        <p><strong>Facilities:</strong> {hospital.facilities.length > 0 ? hospital.facilities.join(', ') : 'None'}</p>
+                        <p><strong>Blood Donation Center:</strong> {hospital.hasBloodDonationCenter ? 'Yes' : 'No'}</p>
+                      </div>
+                      <div className="flex gap-2 mt-4 md:mt-0">
+                        <button
+                          className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded shadow"
+                          onClick={() => handleHospitalApprove(hospital._id)}
+                        >
+                          Approve
+                        </button>
+                        <button
+                          className="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded shadow"
+                          onClick={() => handleRejectHospital(hospital._id)}
+                        >
+                          Reject
+                        </button>
+                      </div>
+                    </li>
+                  ))}
                 </ul>
-            </div>
+              )}
+            </section>
+      
+            {/* Registered Hospitals */}
+            <section>
+              <h3 className="text-lg font-semibold mb-4 text-red-700">Registered Hospitals</h3>
+              <div className="flex flex-wrap items-center justify-center gap-4">
+                {registeredHospital.map((hospital) => (
+                  <Link to={`/hospitalDetails?userId=${hospital._id}`} key={hospital._id} className="w-full sm:w-1/2 lg:w-1/3">
+                    <li className="bg-white shadow-lg rounded-lg p-4 border border-red-200 hover:bg-gray-100 transition">
+                      <p><strong>Name:</strong> {hospital.name}</p>
+                      <p><strong>ID:</strong> {hospital._id}</p>
+                      <p><strong>Joined:</strong> {new Date(hospital.joinedOn).toLocaleDateString()}</p>
+                      <p><strong>Phone:</strong> {hospital.contact.phone}</p>
+                    </li>
+                  </Link>
+                ))}
+              </div>
+            </section>
+          </div>
         </div>
-
-    );
+      );
+      
 }
 
 export default AdminPanel;

@@ -1,33 +1,17 @@
 import React, { useState } from 'react';
-import Donors from './Donors';
+import PostBloodRequest from './PostBloodRequest';
 import Events from './Events';
 
 import Profile from './Profile';
 import Button from 'react-bootstrap/Button';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import userlogo from '../images/User.png'
+import Home from './Home';
 
 const HospitalDashboard = () => {
-    const metrics = {
-        totalDonations: 1234,
-        upcomingEvents: 3,
-        bloodInventory: {
-            APos: 50,
-            ANeg: 20,
-            BPos: 35,
-            BNeg: 10,
-            ABPos: 15,
-            ABNeg: 5,
-            OPos: 60,
-            ONeg: 25,
-        },
-    };
+   
 
-    const activities = [
-        "Donor John Doe added.",
-        "Event Blood Drive scheduled for next week.",
-        "Blood type O- restocked.",
-    ];
+   
 
     const [page, setPage] = useState('home');
     const [showOffcanvas, setShowOffcanvas] = useState(false);
@@ -37,47 +21,16 @@ const HospitalDashboard = () => {
 
     const renderPage = () => {
         switch (page) {
-            case 'donors':
-                return <Donors />;
+            case 'postbloodrequest':
+                return <PostBloodRequest/>;
             case 'events':
                 return <Events />;
             case 'profile':
                 return <Profile />;
             case 'home':
             default:
-                return (
-                    <div>
-                        <h2 className="text-2xl font-bold mb-6">Welcome to the Hospital Dashboard</h2>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mb-6">
-                            <div className="bg-white p-4 shadow rounded">
-                                <h3 className="text-xl font-semibold">Total Donations</h3>
-                                <p className="text-2xl">{metrics.totalDonations}</p>
-                            </div>
-                            <div className="bg-white p-4 shadow rounded">
-                                <h3 className="text-xl font-semibold">Upcoming Events</h3>
-                                <p className="text-2xl">{metrics.upcomingEvents}</p>
-                            </div>
-                            <div className="bg-white p-4 shadow rounded">
-                                <h3 className="text-xl font-semibold">Blood Inventory</h3>
-                                <p className="text-sm">
-                                    A+ {metrics.bloodInventory.APos} | A- {metrics.bloodInventory.ANeg} <br />
-                                    B+ {metrics.bloodInventory.BPos} | B- {metrics.bloodInventory.BNeg} <br />
-                                    AB+ {metrics.bloodInventory.ABPos} | AB- {metrics.bloodInventory.ABNeg} <br />
-                                    O+ {metrics.bloodInventory.OPos} | O- {metrics.bloodInventory.ONeg}
-                                </p>
-                            </div>
-                        </div>
-
-                        <div className="bg-white p-4 shadow rounded mb-6">
-                            <h3 className="text-xl font-semibold">Recent Activities</h3>
-                            <ul>
-                                {activities.map((activity, index) => (
-                                    <li key={index} className="border-b py-2">{activity}</li>
-                                ))}
-                            </ul>
-                        </div>
-                    </div>
-                );
+            return <Home/>
+                
         }
     };
 
@@ -122,12 +75,12 @@ const HospitalDashboard = () => {
                             <li>
                                 <button
                                     onClick={() => {
-                                        setPage('donors');
+                                        setPage('postbloodrequest');
                                         handleClose();
                                     }}
                                     className="block w-full text-left p-2 hover:bg-gray-200"
                                 >
-                                    Donors
+                                   Post Bloodrequest
                                 </button>
                             </li>
                             <li>

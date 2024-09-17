@@ -4,8 +4,22 @@ import { useLocation } from 'react-router-dom';
 import userlogo from './images/User.png'
 import { BaseUrl } from './Util/util';
 const bloodGroups = [
-    'A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-', 'HH (Bombay Blood Group)', 'INRA'
-];
+    'a+', 'a-', 'b+', 'b-', 'ab+', 'ab-', 'o+', 'o-', 'hh (bombay blood group)', 'inra'];
+
+// Blood compatibility mapping
+const compatibility = {
+    'a+': ['a+', 'ab+'],
+    'a-': ['a+', 'a-', 'ab+', 'ab-'],
+    'b+': ['b+', 'ab+'],
+    'b-': ['b+', 'b-', 'ab+', 'ab-'],
+    'ab+': ['ab+'],
+    'ab-': ['ab+', 'ab-'],
+    'o+': ['o+', 'a+', 'b+', 'ab+'],
+    'o-': ['o+', 'o-', 'a+', 'a-', 'b+', 'b-', 'ab+', 'ab-'],
+    'hh (bombay blood group)': ['hh (bombay blood group)'],
+    'inra': ['inra']
+};
+
 
 const DonationDetails = ({ setToken }) => {
     const [donationDetails, setDonationDetails] = useState(null);
@@ -16,6 +30,8 @@ const DonationDetails = ({ setToken }) => {
     const [age, setage] = useState(null);
     const [weight, setweight] = useState(null);
     const [gender, setGender] = useState('');
+    const [requiredBlood, setRequiredBlood] = useState('');
+    const [filteredBloodGroups, setFilteredBloodGroups] = useState(bloodGroups);
 
     const queryParams = new URLSearchParams(location.search);
     const donationId = queryParams.get('donationId');
@@ -30,6 +46,8 @@ const DonationDetails = ({ setToken }) => {
                 });
                 setDonationDetails(response.data);
                 console.log(response.data);
+                const bloodGroupFromResponse = response.data.bloodGroup.toLowerCase();
+                setRequiredBlood(bloodGroupFromResponse);
             } catch (error) {
                 console.log(error);
                 window.alert('Failed to get donation details');
@@ -40,6 +58,15 @@ const DonationDetails = ({ setToken }) => {
             getDonationDetails();
         }
     }, [donationId]);
+
+    useEffect(() => {
+        if (requiredBlood) {
+            setFilteredBloodGroups(bloodGroups.filter(group => compatibility[group]?.includes(requiredBlood)));
+        } else {
+            setFilteredBloodGroups(bloodGroups);
+        }
+    }, [requiredBlood]);
+
 
     const handleSubmit = async () => {
 
@@ -230,7 +257,7 @@ const DonationDetails = ({ setToken }) => {
                             onChange={(e) => setBloodGroup(e.target.value)}
                         >
                             <option value="">Select Blood Group</option>
-                            {bloodGroups.map((group, index) => (
+                            {filteredBloodGroups.map((group, index) => (
                                 <option key={index} value={group}>
                                     {group}
                                 </option>
