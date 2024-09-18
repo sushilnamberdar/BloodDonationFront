@@ -65,13 +65,14 @@ const Navbarjs = ({ setToken,setsignup}) => {
   expanded={navbarExpanded}
   ref={navbarRef}
 >
-  <Container fluid>
-    <Navbar.Brand as={Link} to="/" className="flex-grow-1">
+  <Container fluid style={{paddingLeft:'0px',paddingRight:'0px'}} >
+    <Navbar.Brand as={Link} to="/" className="flex-grow-1 ml-4">
       <img style={{ height: '40px' }} src={logo} alt="logo" />
     </Navbar.Brand>
     <Navbar.Toggle
       aria-controls="navbarScroll"
       onClick={() => setNavbarExpanded(!navbarExpanded)} // Toggle navbar state
+      className='mr-4'
     />
     <Navbar.Collapse id="navbarScroll" className={navbarExpanded ? "p-0" : "px-4"}>
       <Nav

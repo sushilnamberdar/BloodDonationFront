@@ -101,7 +101,7 @@ const WelcomePage = () => {
 
 
     return (
-        <div className="bg-gray-100 p-4 overflow-x-hidden">
+        <div className="bg-gray-100 p-4  min-h-screen overflow-hidden">
             <marquee>
                 <a href='#upcomingevents'>
             < Marquee/>
@@ -158,12 +158,12 @@ const WelcomePage = () => {
                     </div>
                 </section>
 
-                {/* Donor Section */}
+                {/* Donor Section */}   {/* Testimonials Section */}
                 <div className='mt-10 mb-10'>
                   <Carousel>
                     <Carousel.Item interval={1000}>
                         <img
-                            className="w-full h-96 object-cover" // Tailwind classes
+                            className="w-full h-80 object-cover" // Tailwind classes
                             src={donor1}
                             alt="First slide"
                         />
@@ -194,20 +194,20 @@ const WelcomePage = () => {
                 </div>
                 {/* Additional Section */}
                 <section className="my-12 lg:my-20">
-                    <div className="container mx-auto">
+                    <div className="container w-full mx-auto">
                         <div className="flex flex-col lg:flex-row items-center">
 
                             {/* Left Side Image */}
-                            <div className="w-full lg:w-1/2 p-4 lg:p-6" data-aos="fade-right">
+                            <div className="w-full lg:w-1/2  lg:p-6" data-aos="fade-right">
                                 <img
                                     src={bloodDonationImage}
                                     alt="Blood Donation"
-                                    className="rounded-lg shadow-lg object-cover w-full h-64 sm:h-80 lg:h-96"
+                                    className="rounded-lg shadow-lg object-cover  w-full h-64 sm:h-80 lg:h-96"
                                 />
                             </div>
 
                             {/* Right Side Text */}
-                            <div className="w-full lg:w-1/2 p-4 lg:p-6" data-aos="fade-left">
+                            <div className="w-full lg:w-1/2 mt-10 lg:mt-0 sm:mt-3 md:mt-0 xl:mt-0 lg:p-6" data-aos="fade-left">
                                 <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-800 mb-4">
                                     Why Blood Donation Matters
                                 </h3>
@@ -225,9 +225,9 @@ const WelcomePage = () => {
                     </div>
                 </section>
 
-                {/* Testimonials Section */}
+             
                 <section className="my-12 lg:my-20">
-                    <div className="container mx-auto px-4">
+                    <div className="container mx-auto ">
                         <h3 className="text-3xl font-bold text-center text-gray-800 mb-8" data-aos="fade-up">
                             What Our Donors Say
                         </h3>
@@ -255,7 +255,7 @@ const WelcomePage = () => {
                 </section>
 
                 <section className="my-12 lg:my-20" id='upcomingevents'>
-                    <div className="container mx-auto px-4">
+                    <div className="container mx-auto ">
                         <h3 className="text-3xl font-bold text-center text-gray-800 mb-8" data-aos="fade-up">
                             Upcoming Events
                         </h3>
@@ -263,7 +263,7 @@ const WelcomePage = () => {
                             {events.map((event, index) => (
                                 <div
                                     key={index}
-                                    className="p-4"
+                                    className=""
                                     data-aos="fade-up"
                                     data-aos-delay={index * 200}
                                 >
