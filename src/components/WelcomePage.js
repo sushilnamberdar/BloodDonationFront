@@ -253,8 +253,8 @@ const WelcomePage = () => {
                         </div>
                     </div>
                 </section>
-
-                <section className="my-12 lg:my-20" id='upcomingevents'>
+                    
+                <section className="my-12 lg:my-20"  id='upcomingevents'>
                     <div className="container mx-auto ">
                         <h3 className="text-3xl font-bold text-center text-gray-800 mb-8" data-aos="fade-up">
                             Upcoming Events
