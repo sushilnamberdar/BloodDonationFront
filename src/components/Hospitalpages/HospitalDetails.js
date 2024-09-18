@@ -26,6 +26,8 @@ const HospitalDetails = () => {
                     });
                     console.log("this is the response from the server for fetchData =>", response.data);
                     setHospital(response.data.hospitalDetails || {});
+                    setDonationRequests(response.data.donationRequests || []);
+                    setPreviousDonationRequests(response.data.previousDonationRequests || []);
                     
                     // Example for fetching donation requests
                     // const donationResponse = await axios.get(`${BaseUrl}donation-requests`, {
@@ -43,18 +45,25 @@ const HospitalDetails = () => {
 
         fetchData();
     }, [location.search]);
-
     return (
         <>
-            <div className="p-6">
-                <div className='flex items-center justify-center'>
-                    <Link to='/admin' className="text-lg block mb-4 px-3 py-1 rounded-2xl no-underline hover:underline hover:bg-green-700 bg-green-500 text-white"> Admin Home</Link>
+            <div className="p-6 lg:px-12 bg-red-50 min-h-screen">
+                {/* Admin Home Button */}
+                <div className="flex items-center justify-center mb-6">
+                    <Link 
+                        to='/admin' 
+                        className="text-lg px-4 py-2 rounded-lg no-underline hover:bg-red-600 bg-red-500 text-white shadow-lg transition duration-300 ease-in-out transform hover:scale-105">
+                        Admin Home
+                    </Link>
                 </div>
-                <hr className='text-white border-5' />
-                <div className='mt-10 space-y-10'>
+                
+                {/* Divider */}
+                <hr className="border-red-400 mb-8" />
+    
+                <div className="space-y-10">
                     {/* Hospital Details Section */}
-                    <div className="border border-gray-300 p-6 rounded-lg">
-                        <h2 className="text-2xl font-bold break-words">Hospital Details {requestId}</h2>
+                    <div className="border border-red-300 bg-white p-6 rounded-lg shadow-md">
+                        <h2 className="text-2xl font-bold text-red-600 mb-4">Hospital Details {requestId}</h2>
                         <p><strong>Name:</strong> {hospital.name}</p>
                         <p><strong>Address:</strong> {hospital.address ? `${hospital.address.street}, ${hospital.address.city}, ${hospital.address.state}, ${hospital.address.postalCode}` : 'N/A'}</p>
                         <p><strong>Phone:</strong> {hospital.contact ? hospital.contact.phone : 'N/A'}</p>
@@ -63,13 +72,40 @@ const HospitalDetails = () => {
                         <p><strong>Operating Hours:</strong> {hospital.operatingHours ? Object.entries(hospital.operatingHours).map(([day, hours]) => `${day}: ${hours}`).join(', ') : 'N/A'}</p>
                         <p><strong>Special Instructions:</strong> {hospital.specialInstructions}</p>
                         <p><strong>Status:</strong> {hospital.status}</p>
-                        <p><strong>Coordinates:</strong> Latitude: {hospital.coordinates ? hospital.coordinates.latitude : 'N/A'}, Longitude: {hospital.coordinates ? hospital.coordinates.longitude : 'N/A'}</p>
+                        <p><strong>Coordinates:</strong> Latitude: {hospital.coordinates?.latitude ?? 'N/A'}, Longitude: {hospital.coordinates?.longitude ?? 'N/A'}</p>
                         <p><strong>Has Blood Donation Center:</strong> {hospital.hasBloodDonationCenter ? 'Yes' : 'No'}</p>
+                    </div>
+    
+                    {/* Current Requests Section */}
+                    <h2 className="text-xl font-semibold text-red-600">Current Request</h2>
+                    <div className="border border-red-300 bg-white p-6 rounded-lg shadow-md space-y-4">
+                        {donationRequests.map((request, index) => (
+                            <div key={index} className="p-4 bg-red-50 rounded-lg">
+                                <p><strong>Request ID:</strong> {request._id}</p>
+                                <p><strong>Date:</strong> {request.dateOfQuery}</p>
+                                <p className='text-red-500'><strong>Blood Group:</strong> {request.bloodGroup}</p>
+                                <Link to={`/request/${request._id}`} className="text-red-500 hover:underline">View Details</Link>
+                            </div>
+                        ))}
+                    </div>
+    
+                    {/* Previous Requests Section */}
+                    <h2 className="text-xl font-semibold text-red-600">Previous Requests</h2>
+                    <div className="border border-red-300 bg-white p-6 rounded-lg shadow-md space-y-4">
+                        {previousDonationRequests.map((request, index) => (
+                            <div key={index} className="p-4 bg-red-50 rounded-lg">
+                                <p><strong>Request ID:</strong> {request._id}</p>
+                                <p><strong>Date:</strong> {request.dateOfQuery}</p>
+                                <p className='text-red-500'><strong>Blood Group:</strong> {request.bloodGroup}</p>
+                                <Link to={`/request/${request._id}`} className="text-red-500 hover:underline">View Details</Link>
+                            </div>
+                        ))}
                     </div>
                 </div>
             </div>
         </>
     );
+    
 };
 
 export default HospitalDetails;

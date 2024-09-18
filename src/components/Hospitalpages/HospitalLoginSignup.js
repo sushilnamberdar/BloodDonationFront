@@ -110,7 +110,10 @@ const HospitalLoginSignup = () => {
     try {
       const response = await axios.post(`${BaseUrl}loginHospital`, { contact:formData.contact, password: formData.password }); // Use email and password for login
       localStorage.setItem('htoken', response.data.token);  // Store htoken in localStorage
-      setToken(response.data.token);  // Update state with token
+      setToken(response.data.token);  
+      console.log(response)// Update state with token
+      window.scroll(0,0)
+      toast.success(response.data.message);
       navigate('/hospitalDashboard');  // Redirect after successful login
     } catch (error) {
       console.error('Login failed:', error);
@@ -127,11 +130,12 @@ const HospitalLoginSignup = () => {
     }
     try {
       const response = await axios.post(`${BaseUrl}hospitalSignup`, formData).then((response)=> {
-        console.log(response.data)
+        window.scroll(0,0)
         toast.success(`${response.data.message} status: ${response.data.data.status}`);
       });  // Pass the entire formData object
     } catch (error) {
       console.error('Signup failed:', error);
+      window.scroll(0,0);
       toast.error('Signup failed: '  + error.response.data.message);
     }
   };

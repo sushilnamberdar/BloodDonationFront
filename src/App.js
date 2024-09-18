@@ -24,6 +24,7 @@ import Profile from './components/Hospitalpages/Profile';
 import HospitalDetails from './components/Hospitalpages/HospitalDetails';
 import AdminManageUsers from './components/AdminManageUsers';
 import HospitalDonorsResponsesDetails from './components/Hospitalpages/HospitalDonorsResponses';
+import HospitalDonationDetails from './components/HospitalDonationDetails';
 function App() {
 
   const [token, setToken] = useState('');
@@ -47,8 +48,8 @@ function App() {
     <div className="App">
      <Navbarjs setsignup={setsignup} setToken={setToken}/>
       <div>    
-      <ToastContainer />
-        <Routes>
+      <ToastContainer/>
+      <Routes>
         <Route path="/loginsignup" element={token ? <Navigate to="/home"/> : <LoginSignup setsignup={setsignup} signup={signup} setToken={setToken} />} />
           <Route path="/admin" element={adminToken ? <AdminPanel setAdminToken={setAdminToken}/> : <Navigate to="/adminLogin" />} />
           <Route path="/adminLogin" element={adminToken ? <Navigate to="/admin"/> : <AdminLogSign setAdminToken={setAdminToken}/>} />
@@ -65,6 +66,7 @@ function App() {
           <Route path='/hospitalDashboard' element={<HospitalDashboard/>}/>
           <Route path='/manageUsers' element={<AdminManageUsers/>}/>
           <Route path='/HospitalDonorsResponses' element={<HospitalDonorsResponsesDetails/>} />
+          <Route path='/hospitaldonationDetails' element={<HospitalDonationDetails/>}/>
         </Routes>
       </div>
        <Footer/>

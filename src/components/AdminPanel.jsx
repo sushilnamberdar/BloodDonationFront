@@ -159,7 +159,7 @@ function AdminPanel({ setAdminToken }) {
                         <p><strong>Address:</strong> {hospital.address.street}, {hospital.address.city}, {hospital.address.state}, {hospital.address.postalCode}</p>
                         <p><strong>Phone:</strong> {hospital.contact.phone}</p>
                         <p><strong>Email:</strong> {hospital.contact.email}</p>
-                        <p><strong>Facilities:</strong> {hospital.facilities.length > 0 ? hospital.facilities.join(', ') : 'None'}</p>
+                        <p><strong>Facilities:</strong> {hospital.facilities > 0 ? hospital.facilities.join(', ') : 'None'}</p>
                         <p><strong>Blood Donation Center:</strong> {hospital.hasBloodDonationCenter ? 'Yes' : 'No'}</p>
                       </div>
                       <div className="flex gap-2 mt-4 md:mt-0">

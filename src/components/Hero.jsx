@@ -30,7 +30,7 @@ import { FaHeartbeat, FaHandHoldingHeart, FaTint } from 'react-icons/fa';
 
 const Hero = ({ setToken }) => {
   const [donaters, setDonaters] = useState([]);
-  const[hospitalrequest,sethospitalrequest]=useState([]);
+  const [hospitalrequest, sethospitalrequest] = useState([]);
   const [location, setLocation] = useState({
     longitude: null,
     latitude: null
@@ -93,7 +93,6 @@ const Hero = ({ setToken }) => {
 
   const [showCamps, setShowCamps] = useState(false);
 
-console.log(hospitalrequest)
   return (
     <div className="hero-container" data-aos='fade-left'>
 
@@ -296,28 +295,47 @@ console.log(hospitalrequest)
         </ul>
       </div>
 
-      
-      <div className="bg-white p-4 rounded-lg shadow-md">
-  <h2 className="text-2xl font-semibold mb-4">Hospital Blood Request</h2>
-  {hospitalrequest.map((request, index) => (
-    <div key={index} className="mb-6 border-b border-gray-200 pb-4">
-      <div className="text-lg font-medium mb-1">Hospital Name: <span className="font-normal">{request.name}</span></div>
-      <div className="text-lg font-medium mb-1">Needed Blood Group: <span className="font-normal">{request.bloodGroup}</span></div>
-      <div className="text-lg font-medium mb-1">Hospital Location: 
-        <a 
-          href={`https://www.google.com/maps?q=${request.location.latitude},${request.location.longitude}`} 
-          target="_blank" 
-          rel="noopener noreferrer" 
-          className="text-indigo-500 hover:underline"
-        >
-          Latitude {request.location.latitude}, Longitude {request.location.longitude}
-        </a>
-      </div>
-      <div className="text-lg font-medium mb-1">Hospital Phone Number: <span className="font-normal">{request.phoneNumber}</span></div>
-    </div>
-  ))}
-</div>
 
+      <div className="bg-white p-6 rounded-lg shadow-md">
+        <h2 className="text-2xl font-semibold mb-4">Hospital Blood Request</h2>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          {hospitalrequest.map((request, index) => (
+            <div
+              key={index}
+              className="p-4 w-full bg-gray-50 rounded-lg shadow-md border border-gray-300 flex flex-col space-y-3"
+            >
+              <div className="text-lg font-medium">
+                Hospital Name:
+                <span className="font-normal"> {request.name}</span>
+              </div>
+              <Link to={`/hospitaldonationDetails?donationId=${request._id}`} key={index}> Donate Now</Link>
+
+              <div className="text-lg font-medium">
+                Needed Blood Group:
+                <span className="font-normal"> {request.bloodGroup}</span>
+              </div>
+
+              <div className="text-lg font-medium">
+                Hospital Location:
+                <a
+                  href={`https://www.google.com/maps?q=${request.location.latitude},${request.location.longitude}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="!text-indigo-500 hover:underline"
+                >
+                  Open Google Map
+                </a>
+              </div>
+
+              <div className="text-lg font-medium">
+                Phone Number:
+                <span className="font-normal"> {request.phoneNumber}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
 
     </div>
   );
