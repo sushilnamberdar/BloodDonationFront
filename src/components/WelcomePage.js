@@ -73,7 +73,7 @@ const WelcomePage = () => {
         const interval = setInterval(() => {
             setCurrentIndex(prevIndex => (prevIndex + 1) % images.length);
         }, 2000); // Change image every 2 seconds
-        return () => clearInterval(interval); // Clean up interval on component unmount
+        return () => clearInterval(interval);
     }, [images.length]);
 
     useEffect(() => {
@@ -163,7 +163,7 @@ const WelcomePage = () => {
                   <Carousel>
                     <Carousel.Item interval={1000}>
                         <img
-                            className="w-full h-80 object-cover" // Tailwind classes
+                            className="w-full h-80 lg:h-[500px] object-cover"
                             src={donor1}
                             alt="First slide"
                         />
@@ -172,7 +172,7 @@ const WelcomePage = () => {
                     </Carousel.Item>
                     <Carousel.Item interval={500}>
                         <img
-                            className="w-full h-80 object-cover" // Tailwind classes
+                            className="w-full h-80 lg:h-[500px] object-cover"
                             src={donor2}
                             alt="Second slide"
                         />
@@ -181,7 +181,7 @@ const WelcomePage = () => {
                     </Carousel.Item>
                     <Carousel.Item>
                         <img
-                            className="w-full h-80 object-cover" // Tailwind classes
+                            className="w-full h-80 lg:h-[500px] object-cover" 
                             src={donor3}
                             alt="Third slide"
                         />
