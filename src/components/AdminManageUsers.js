@@ -90,7 +90,7 @@ const AdminManageUsers = () => {
       {/* Modal for confirmation */}
       <ConfirmationModal
         isOpen={isModalOpen}
-        message={`Are you sure you want to delete this ${deleteType === 'user' ? 'user' : 'hospital'}?`}
+        message={`Are you sure you want to delete this ${deleteType === 'user' ? 'user' : 'hospital'}?  `}
         onConfirm={handleDelete}
         onCancel={() => setIsModalOpen(false)}
       />
