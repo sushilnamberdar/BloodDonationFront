@@ -7,27 +7,6 @@ import 'aos/dist/aos.css';
 import Accordion from 'react-bootstrap/Accordion';
 import { FaHeartbeat, FaHandHoldingHeart, FaTint } from 'react-icons/fa';
 
-// const DropdownCard = ({ title, content }) => {
-//   const [isOpen, setIsOpen] = useState(false);
-
-//   const toggleDropdown = () => {
-//     setIsOpen(!isOpen);
-//   };
-
-//   return (
-//     <div className="dropdown-card">
-//       <button className="dropdown-toggle text-wrap" onClick={toggleDropdown}>
-//         {isOpen ? `Hide ${title}` : `Show ${title}`}
-//       </button>
-//       {isOpen && <div className="dropdown-content bg-white text-red-500">{content}</div>}
-//     </div>
-//   );
-// };
-
-
-
-
-
 const Hero = ({ setToken }) => {
   const [donaters, setDonaters] = useState([]);
   const [hospitalrequest, sethospitalrequest] = useState([]);

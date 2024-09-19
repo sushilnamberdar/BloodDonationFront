@@ -16,10 +16,9 @@ const Profile = () => {
     <div className="p-6 bg-gray-100">
       <h2 className="text-2xl font-bold mb-4">Profile</h2>
       <div className="bg-white p-4 shadow rounded">
-        <h3 className="text-xl font-semibold mb-2">Hospital Profile</h3>
         <div className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700">Hospital Name</label>
+            <label className="block text-sm font-medium text-gray-700">Hospital / Organization Name</label>
             <input
               type="text"
               name="hospitalName"

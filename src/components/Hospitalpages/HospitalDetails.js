@@ -63,7 +63,7 @@ const HospitalDetails = () => {
                 <div className="space-y-10">
                     {/* Hospital Details Section */}
                     <div className="border border-red-300 bg-white p-6 rounded-lg shadow-md">
-                        <h2 className="text-2xl font-bold text-red-600 mb-4">Hospital Details {requestId}</h2>
+                        <h2 className="text-2xl font-bold text-red-600 mb-4">Hospital/Organizations Details {requestId}</h2>
                         <p><strong>Name:</strong> {hospital.name}</p>
                         <p><strong>Address:</strong> {hospital.address ? `${hospital.address.street}, ${hospital.address.city}, ${hospital.address.state}, ${hospital.address.postalCode}` : 'N/A'}</p>
                         <p><strong>Phone:</strong> {hospital.contact ? hospital.contact.phone : 'N/A'}</p>
@@ -84,7 +84,7 @@ const HospitalDetails = () => {
                                 <p><strong>Request ID:</strong> {request._id}</p>
                                 <p><strong>Date:</strong> {request.dateOfQuery}</p>
                                 <p className='text-red-500'><strong>Blood Group:</strong> {request.bloodGroup}</p>
-                                <Link to={`/donorresponsehospitaladmin?donorId=${request._id}`} className="text-red-500 hover:underline">View Details</Link>
+                                <Link to={`/donorresponsehospitaladmin?requestId=${request._id}`} className="text-red-500 hover:underline">View Details</Link>
                             </div>
                         ))}
                     </div>

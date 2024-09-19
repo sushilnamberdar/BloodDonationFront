@@ -84,7 +84,7 @@ const Navbarjs = ({ setToken,setsignup}) => {
       >
         {htoken ? (
           <>
-            <Nav.Link as={Link} to="/hospitaldashboard" className={navbarExpanded ? 'mt-3' : ''}>Hospital Dashboard</Nav.Link>
+            <Nav.Link as={Link} to="/hospitaldashboard" className={navbarExpanded ? 'mt-3' : ''}>Dashboard</Nav.Link>
             <button
               className={`bg-indigo-500 px-5 text-white rounded-3xl hover:bg-indigo-600 ${
                 navbarExpanded ? 'mt-3' : ''
@@ -113,7 +113,7 @@ const Navbarjs = ({ setToken,setsignup}) => {
             <Nav.Link as={Link} to="/bloodRequirement" className={navbarExpanded ? 'mt-3' : ''}>Blood / Camps Request</Nav.Link>
             <Nav.Link as={Link} to="/home" className={navbarExpanded ? 'mt-3' : ''}>Home</Nav.Link>
             <Nav.Link as={Link} to="/about" className={navbarExpanded ? 'mt-3' : ''}>About</Nav.Link>
-            <Nav.Link as={Link} to="/services" className={navbarExpanded ? 'mt-3' : ''}>Services</Nav.Link>
+            <Nav.Link as={Link} to="/userprofile" className={navbarExpanded ? 'mt-3' : ''}>Profile</Nav.Link>
             <button
               className={`bg-indigo-500 px-5 text-white rounded-3xl hover:bg-indigo-600 ${
                 navbarExpanded ? 'mt-3' : ''
@@ -133,7 +133,7 @@ const Navbarjs = ({ setToken,setsignup}) => {
                 navbarExpanded ? 'mt-3' : ''
               }`}
             >
-              Hospital Login
+              Hospital / Organization
             </Nav.Link>
             <Nav.Link
               as={Link}

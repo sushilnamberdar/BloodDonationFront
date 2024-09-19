@@ -26,6 +26,7 @@ import AdminManageUsers from './components/AdminManageUsers';
 import HospitalDonorsResponsesDetails from './components/Hospitalpages/HospitalDonorsResponses';
 import HospitalDonationDetails from './components/HospitalDonationDetails';
 import DonorResponseHospitalAdmin from './components/DonorResponseHospitalAdmin';
+import UserProfile from './components/UserProfile';
 function App() {
 
   const [token, setToken] = useState('');
@@ -69,6 +70,7 @@ function App() {
           <Route path='/HospitalDonorsResponses' element={<HospitalDonorsResponsesDetails/>} />
           <Route path='/hospitaldonationDetails' element={<HospitalDonationDetails/>}/>
           <Route path='/donorresponsehospitaladmin'element={<DonorResponseHospitalAdmin/>} />
+          <Route path='/userprofile' element={<UserProfile/>}/>
         </Routes>
       </div>
        <Footer/>

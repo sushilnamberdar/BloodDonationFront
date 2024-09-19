@@ -171,28 +171,7 @@ const HospitalLoginSignup = () => {
     }));
   };
 
-  // const handleCoordinatesChange = (e) => {
-  //   const { name, value } = e.target;
-  //   setFormData(prevData => ({
-  //     ...prevData,
-  //     coordinates: {
-  //       ...prevData.coordinates,
-  //       [name]: value
-  //     }
-  //   }));
-  // };
 
-  // const handleOperatingHoursChange = (e) => {
-  //   const { name, value } = e.target;
-  //   setFormData(prevData => ({
-  //     ...prevData,
-  //     operatingHours: {
-  //       ...prevData.operatingHours,
-  //       [name]: value
-  //     }
-  //   }));
-  // };
-  // If htoken exists, show dashboard message (or redirect could be handled here)
   if (htoken) {
     return <p>Loading your dashboard...</p>;  // Optionally, render something or handle with `navigate`
   }
@@ -204,7 +183,7 @@ const HospitalLoginSignup = () => {
           <div className="text-center">
             <img alt="Hospital Logo" src={logo} className="mx-auto h-10 w-auto" />
             <h2 className="mt-10 text-2xl font-bold leading-9 tracking-tight text-gray-900">
-              {signup ? 'Sign Up Your Hospital' : 'Login to Your Hospital Account'}
+              {signup ? 'Sign Up Your Hospital / Organization ' : 'Login to Your Hospital / Organization Account'}
             </h2>
           </div>
 
@@ -214,7 +193,7 @@ const HospitalLoginSignup = () => {
               {signup && (
                 <div data-aos="fade-up">
                   <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900">
-                    Hospital Name
+                    Hospital /Organization Name
                   </label>
                   <div className="mt-2">
                     <input
