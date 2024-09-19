@@ -84,7 +84,7 @@ const HospitalDetails = () => {
                                 <p><strong>Request ID:</strong> {request._id}</p>
                                 <p><strong>Date:</strong> {request.dateOfQuery}</p>
                                 <p className='text-red-500'><strong>Blood Group:</strong> {request.bloodGroup}</p>
-                                <Link to={`/request/${request._id}`} className="text-red-500 hover:underline">View Details</Link>
+                                <Link to={`/donorresponsehospitaladmin?donorId=${request._id}`} className="text-red-500 hover:underline">View Details</Link>
                             </div>
                         ))}
                     </div>
@@ -97,7 +97,7 @@ const HospitalDetails = () => {
                                 <p><strong>Request ID:</strong> {request._id}</p>
                                 <p><strong>Date:</strong> {request.dateOfQuery}</p>
                                 <p className='text-red-500'><strong>Blood Group:</strong> {request.bloodGroup}</p>
-                                <Link to={`/request/${request._id}`} className="text-red-500 hover:underline">View Details</Link>
+                                {/* <Link to={`/request/${request._id}`} className="text-red-500 hover:underline">View Details</Link> */}
                             </div>
                         ))}
                     </div>
