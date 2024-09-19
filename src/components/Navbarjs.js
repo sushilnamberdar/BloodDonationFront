@@ -97,7 +97,7 @@ const Navbarjs = ({ setToken,setsignup}) => {
         ) : atoken ? (
           <>
             <Nav.Link as={Link} to="/home" className={navbarExpanded ? 'mt-3' : ''}>Home</Nav.Link>
-            <Nav.Link as={Link} to="/eventsadmin" className={navbarExpanded ? 'mt-3' : ''}>Event</Nav.Link>
+            <Nav.Link as={Link} to="/eventsadmin" className={navbarExpanded ? 'mt-3' : ''}>Events</Nav.Link>
             <Nav.Link as={Link} to="/admin" className={navbarExpanded ? 'mt-3' : ''}>Admin Home</Nav.Link>
             <Nav.Link as={Link} to="/manageUsers" className={navbarExpanded ? 'mt-3' : ''}>Manage Users</Nav.Link>
             <button

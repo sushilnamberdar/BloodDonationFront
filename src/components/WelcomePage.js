@@ -19,6 +19,8 @@ import bloodDonationImage from './images/welcomepage1.jpg';
 
 import Carousel from 'react-bootstrap/Carousel';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
+import { BaseUrl } from './Util/util';
 
 const testimonials = [
     {
@@ -37,6 +39,11 @@ const testimonials = [
         image: donor3,
     }
 ];
+
+
+
+
+  
 
 const events = [
     {
@@ -63,6 +70,7 @@ const WelcomePage = () => {
     const images = [Img, img1, img2, img3];
     const [currentIndex, setCurrentIndex] = useState(0);
     const sliderRef = useRef(null);
+    const [events,setEvents] = useState([]);
 
     useEffect(() => {
         AOS.init({ duration: 1000 });
@@ -99,6 +107,41 @@ const WelcomePage = () => {
     }
 
 
+    const fetchEvents = async () => {
+        try {
+          const response = await axios.get(`${BaseUrl}getEvents`);
+          console.log(response);
+          setEvents(response.data.events);
+        } catch (error) {
+          console.error('Error fetching events:', error);
+        }
+      };
+
+      useEffect(()=> {
+        fetchEvents();
+      },[])
+
+      function formatDateToIndian(dateString) {
+        const date = new Date(dateString);
+    
+        const day = String(date.getDate()).padStart(2, '0');
+        const monthIndex = date.getMonth(); // Get the index of the month
+        const year = date.getFullYear();
+        const hours = String(date.getHours()).padStart(2, '0');
+        const minutes = String(date.getMinutes()).padStart(2, '0');
+        
+        // Array of month names
+        const months = [
+            'January', 'February', 'March', 'April', 'May', 'June',
+            'July', 'August', 'September', 'October', 'November', 'December'
+        ];
+        
+        // Get the month name using the index
+        const month = months[monthIndex];
+        
+        return `${day} ${month} ${year}`;
+    }
+    
 
     return (
         <div className="bg-gray-100 p-4  min-h-screen overflow-hidden">
@@ -268,10 +311,10 @@ const WelcomePage = () => {
                                     data-aos-delay={index * 200}
                                 >
                                     <div className="bg-white p-6 rounded-lg shadow-lg">
-                                        <h4 className="text-xl font-semibold text-gray-800 mb-2">{event.title}</h4>
-                                        <p className="text-gray-600 mb-2">{event.date}</p>
-                                        <p className="text-gray-600 mb-4">{event.location}</p>
-                                        <p className="text-gray-700">{event.description}</p>
+                                        <h4 className="text-xl font-semibold text-gray-800 mb-2">{event.eventName}</h4>
+                                        <p className="text-gray-600 mb-2">{formatDateToIndian(event.eventDate) || 'Na'}</p>
+                                        <p className="text-gray-600 mb-4">{event.eventLocation}</p>
+                                        <p className="text-gray-700">{event.eventDescription}</p>
                                     </div>
                                 </div>
                             ))}
