@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Navigate, useLocation, useNavigate } from 'react-router-dom';
+import {BaseUrl} from './Util/util'
+import { toast } from 'react-toastify';
 
 const DonorResponse = ({ setToken }) => {
   const [responses, setResponses] = useState([]);
@@ -30,7 +32,7 @@ const DonorResponse = ({ setToken }) => {
     const token = localStorage.getItem("token");
     try {
       const response = await axios.get(
-        "http://localhost:7000/getDonorsResponses",
+        `${BaseUrl}getDonorsResponses`,
         {
           params: { requestId: requestNumber },
           headers: { Authorization: token }
@@ -49,7 +51,7 @@ const DonorResponse = ({ setToken }) => {
     console.log(requestNumber);
     const token = localStorage.getItem('token');
     try {
-      const response = axios.post('http://localhost:7000/approveDonation',
+      const response = axios.post(`${BaseUrl}approveDonation`,
         { donorId, donationId: requestNumber },
         {
           headers: { Authorization: token }
@@ -58,15 +60,34 @@ const DonorResponse = ({ setToken }) => {
     } catch (error) {
       console.log(error)
     }
-    
+
     navigate('/bloodRequirement');
   };
+
+  const handeldelte = async () => {
+    const token = localStorage.getItem('token');
+    try {
+      const response = await axios.delete(`${BaseUrl}deleteBloodRequestUser`,
+        {
+          params: {id: requestNumber },
+          headers: { Authorization: token }
+        }
+      )
+      toast.success(response.data.message);
+      navigate('/bloodRequirement');
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
 
   return (
     <>
       <div className="flex flex-col items-center justify-center p-4 md:p-8">
+        <button onClick={handeldelte} className='bg-violet-500 text-white py-1 px-3 rounded-2xl' >Delete Request</button>
         <div>
           <h2 className="text-2xl font-bold mb-4">Donor Responses</h2>
+
           <input
             type="search"
             value={search}

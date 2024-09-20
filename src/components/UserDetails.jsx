@@ -37,6 +37,10 @@ const UserDetails = () => {
         fetchData();
     }, [location.search]);
 
+
+    
+    
+
     return (
         <>
         <div className="p-6">
