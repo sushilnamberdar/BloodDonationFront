@@ -218,7 +218,7 @@ function AdminPanel({ setAdminToken }) {
             <strong>ID:</strong> {hospital._id}
           </p>
           <p className="text-gray-700">
-            <strong>Joined:</strong> {new Date(hospital.joinedOn).toLocaleDateString()}
+            <strong>Email:</strong> {hospital.contact.email}
           </p>
           <p className="text-gray-700">
             <strong>Phone:</strong> {hospital.contact.phone}

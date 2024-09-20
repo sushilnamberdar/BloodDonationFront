@@ -6,6 +6,7 @@ import 'tailwindcss/tailwind.css';
 
 const UserProfile = () => {
   const [user, setUser] = useState({});
+  const [previousRequest, setPreviousRequest] = useState(null)
   const [showPassword, setShowPassword] = useState(false);
 
   useEffect(() => {
@@ -16,6 +17,7 @@ const UserProfile = () => {
           headers: { Authorization: token },
         });
         setUser(response.data.user);
+        setPreviousRequest(response.data.previousRequests);
         console.log('This is the response from the server for fetchData =>', response.data);
       } catch (error) {
         console.log('Error fetching data:', error);
@@ -30,11 +32,10 @@ const UserProfile = () => {
     setShowPassword(!showPassword);
   };
 
-  console.log(user)
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-red-100 p-6">
-      <div className="w-full max-w-md bg-white rounded-lg shadow-lg p-6">
-        <h2 className="text-2xl font-semibold text-center text-red-600 mb-6">User Profile</h2>
+    <div className="flex flex-col items-center justify-center min-h-screen bg-red-100 p-4 sm:p-6">
+      <div className="w-full max-w-2xl bg-white rounded-lg shadow-lg p-6">
+        <h2 className="text-3xl font-semibold text-center text-red-600 mb-6">User Profile</h2>
 
         {/* Display User Information */}
         <div className="space-y-4">
@@ -43,8 +44,8 @@ const UserProfile = () => {
             <span className="flex items-center font-semibold">
               <FaTint className="text-red-600 mr-2" /> Blood Group:
             </span>
-            <span className='text-red-500'>{user.bloodGroup?.toUpperCase() ?? 'N/A'}</span>
-            </div>
+            <span className="text-red-500">{user.bloodGroup?.toUpperCase() ?? 'N/A'}</span>
+          </div>
 
           {/* Phone Number */}
           <div className="flex justify-between items-center">
@@ -83,11 +84,11 @@ const UserProfile = () => {
             <span className="flex items-center font-semibold">
               <FaEye className="text-red-600 mr-2" /> Password:
             </span>
-            <div className="relative">
+            <div className="relative w-full">
               <input
                 type={showPassword ? 'text' : 'password'}
                 value={user.password || ''}
-                className="border border-gray-300 rounded px-4 py-2"
+                className="border border-gray-300 rounded px-4 py-2 w-full"
                 readOnly
               />
               <button
@@ -109,8 +110,22 @@ const UserProfile = () => {
           </div>
         </div>
       </div>
+
+      {/* Display Previous Requests */}
+      <div className="w-full max-w-2xl bg-white rounded-lg shadow-lg p-6 mt-6">
+        <h2 className="text-2xl font-bold text-center text-red-600 mb-4">Previous Requests</h2>
+        {previousRequest?.map((request) => (
+          <div key={request.id} className="bg-red-50 border border-red-200 p-4 rounded mb-4 shadow-sm">
+            <p className=" break-words font-semibold">Request ID: {request._id || 'No details available'}</p>
+            <p className=" items-center flex justify-center font-semibold">Blood Group: {request.bloodGroup || 'No details available'} <FaTint className="text-red-600 mr-2" /></p>
+            <p className="font-semibold">Date of Query: {new Date(request.dateOfQuery).toLocaleDateString() || 'No details available'}</p>
+          </div>
+        ))}
+      </div>
     </div>
   );
+
+
 };
 
 export default UserProfile;

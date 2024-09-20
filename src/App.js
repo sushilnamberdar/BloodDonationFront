@@ -28,6 +28,7 @@ import HospitalDonationDetails from './components/HospitalDonationDetails';
 import DonorResponseHospitalAdmin from './components/DonorResponseHospitalAdmin';
 import UserProfile from './components/UserProfile';
 import EventsAdmin from './components/EventsAdmin';
+import ForgetPassword from './components/ForgetPassword';
 function App() {
 
   const [token, setToken] = useState('');
@@ -73,6 +74,7 @@ function App() {
           <Route path='/donorresponsehospitaladmin'element={<DonorResponseHospitalAdmin/>} />
           <Route path='/userprofile' element={<UserProfile/>}/>
           <Route path='/eventsadmin' element={<EventsAdmin/>}/>
+          <Route path='/forgetPassword' element={<ForgetPassword/>}/>
         </Routes>
       </div>
        <Footer/>
