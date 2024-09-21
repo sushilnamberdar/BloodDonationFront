@@ -21,6 +21,7 @@ import Carousel from 'react-bootstrap/Carousel';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { BaseUrl } from './Util/util';
+import WelcomePageSlider from './WelcomePageSlider';
 
 const testimonials = [
     {
@@ -85,9 +86,9 @@ const WelcomePage = () => {
             </div>
         );
     };
-    
-    
-// console.log("events ",events)
+
+
+    // console.log("events ",events)
 
     const fetchEvents = async () => {
         try {
@@ -118,7 +119,7 @@ const WelcomePage = () => {
             'July', 'August', 'September', 'October', 'November', 'December'
         ];
 
-        // Get the month name using the index
+        
         const month = months[monthIndex];
 
         return `${day} ${month} ${year}`;
@@ -126,18 +127,27 @@ const WelcomePage = () => {
 
 
     return (
-        <div className="bg-gray-100 p-4  min-h-screen overflow-hidden">
-            <marquee>
+        <div className="bg-gray-100 p-  min-h-screen overflow-hidden">
+            <marquee >
                 <a href='#upcomingevents'>
                     < Marquee events={events} />
                 </a>
             </marquee>
 
+            <WelcomePageSlider data-aos='fade-left'/>
 
-        
             <div className="container mx-auto mt-12">
 
+
+                
+
                 <div className="flex flex-col lg:flex-row items-center flex-wrap">
+
+
+
+
+
+
 
                     {/* Text Section */}
                     <div data-aos="fade-right" className="w-full lg:w-1/2 text-left p-4 lg:p-6">

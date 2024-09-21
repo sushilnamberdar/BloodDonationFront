@@ -135,7 +135,7 @@ function AdminPanel({ setAdminToken }) {
             {/* unverified user  */}
             <section className="mb-8">
           <h3 className="text-lg font-semibold mb-4 text-red-700">Unverified User</h3>
-          {notVerifiedUsers.length === 0 ? (
+          {/* {notVerifiedUsers.length === 0 ? (
             <p className="text-gray-500">No a single user find unverified.</p>
           ) : (
             <ul className="space-y-4">
@@ -159,7 +159,7 @@ function AdminPanel({ setAdminToken }) {
                 </li>
               ))}
             </ul>
-          )}
+          )} */}
         </section>
 
 
