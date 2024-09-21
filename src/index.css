@@ -31,8 +31,3 @@
       transform: translateX(-100%);
     }
   }
-  
-  .marquee {
-    animation: marquee 10s linear infinite; /* Animation duration and type */
-  }
-  

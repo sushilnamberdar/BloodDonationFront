@@ -68,7 +68,7 @@ const UserProfile = () => {
           {/* Location */}
           <div className="flex justify-between items-center">
             <span className="flex items-center font-semibold">
-              <FaMapMarkerAlt className="text-red-600 mr-2" /> Location:
+              <FaMapMarkerAlt className="text-red-600 mr-2" /> Login Location:
             </span>
             {user.location ? (
               <span>

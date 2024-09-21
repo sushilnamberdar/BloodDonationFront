@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import Aos from 'aos';
-import 'aos/dist/aos.css';
+// import aosx from 'aosx';
+// import 'aosx/dist/aosx.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import logo from './images/iinsaf.png';
@@ -24,10 +24,10 @@ const LoginSignup = ({ setToken, signup, setsignup }) => {
   const [location, setLocation] = useState({ longitude: null, latitude: null });
   const [currentIndex, setCurrentIndex] = useState(0);
   const [signupbuttonclick, setsignupbutton] = useState(false);
-  const [otp,setotp] = useState('');
+  const [otp, setotp] = useState(null);
 
   useEffect(() => {
-    Aos.init({ duration: 1000, once: true });
+    // aosx.init({ duration: 1000, once: true });
   }, []);
 
   useEffect(() => {
@@ -98,22 +98,41 @@ const LoginSignup = ({ setToken, signup, setsignup }) => {
   };
 
   const handleSignup = async () => {
-    try {
-      setsignupbutton(true);
-      console.log('signupbuttonclick:', signupbuttonclick);
-      const response = await axios.post(`${BaseUrl}addUser`, { phoneNumber, password, bloodGroup, email });
-      console.log(response.data);
-      toast.success(`signup successfull wait for the admin response status:  ${response.data.newUser.status}`);
-    } catch (error) {
-      setsignupbutton(false)
-      if (error.response && error.response.data) {
-        toast.error(error.response.data.error);
-      } else {
-        toast.error('An unexpected error occurred. Please try again.');
-      }
-
-    }
+    axios.post(`${BaseUrl}addUser`, { phoneNumber, password, bloodGroup, email })
+      .then((response) => {
+        console.log(response.data);
+        toast.success(`signup successfull wait for the admin response status:  ${response.data}`);
+        // Update the state with the new value
+      })
+      .catch((error) => {
+        console.log(error);
+      }).finally(()=> {
+        setsignupbutton(true)
+      })
+      setsignupbutton(true); 
   };
+
+  
+
+  // for otp veryficatoin 
+  const handelotpvery = async () => {
+
+    try {
+      const response = await axios.post(`${BaseUrl}verifyOtp`, { email, otp });
+      console.log(response.data);
+      window.scroll(0,0)
+      toast.success(response.data.message);
+      // window.location.href='/login';
+      
+    } catch (error) {
+      console.log(error)
+      toast.error(error.response.data.error)
+    }
+  }
+
+
+
+
   return (
     <div
       className="min-h-screen flex items-center justify-center bg-gray-100"
@@ -123,10 +142,11 @@ const LoginSignup = ({ setToken, signup, setsignup }) => {
         backgroundPosition: 'center', // Center the background image
       }}
     >
+      <h1>{signupbuttonclick}</h1>
       {/* Outer border container */}
-      <div className="w-full max-w-md bg-white border-4 border-gray-300 rounded-lg shadow-lg p-6" data-aos="fade-left">
+      <div className="w-full max-w-md bg-white border-4 border-gray-300 rounded-lg shadow-lg p-6" data-aosx="fade-left">
         {/* Logo and Title */}
-        <div className="sm:mx-auto sm:w-full sm:max-w-sm" data-aos="zoom-in">
+        <div className="sm:mx-auto sm:w-full sm:max-w-sm" data-aosx="zoom-in">
           <img alt="Your Company" src={logo} className="mx-auto h-10 w-auto" />
           <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
             {signup ? 'Sign Up to Your Account' : 'Login to Your Account'}
@@ -137,7 +157,7 @@ const LoginSignup = ({ setToken, signup, setsignup }) => {
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
           <div className="space-y-6">
             {/* Phone Number Input */}
-            <div data-aos="fade-up" className={signupbuttonclick ? "hidden" : "block"} >
+            <div data-aosx="fade-up" className={signupbuttonclick ? "hidden" : "block"} >
               <label htmlFor="phone" className="block text-sm font-medium leading-6 text-gray-900">
                 Phone Number
               </label>
@@ -157,7 +177,7 @@ const LoginSignup = ({ setToken, signup, setsignup }) => {
 
             {/* email input  */}
             {signup && (
-              <div data-aos="fade-up">
+              <div data-aosx="fade-up">
                 <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
                   Email
                 </label>
@@ -177,12 +197,11 @@ const LoginSignup = ({ setToken, signup, setsignup }) => {
               </div>
             )}
 
-              
-              {signupbuttonclick&&(
-                <div>
-                  <label htmlFor="otp" className="block text-sm font-medium leading-6 text-gray-
-                  900">Enter OTP</label>
-                  <input
+
+            { signupbuttonclick && signup && (
+              <div>
+                <label htmlFor="otp" className="block text-sm font-medium leading-6 text-gray-900">Enter OTP</label>
+                <input
                   id='otp'
                   name='otp'
                   type='number'
@@ -191,13 +210,20 @@ const LoginSignup = ({ setToken, signup, setsignup }) => {
                   value={otp}
                   onChange={(e) => setotp(e.target.value)}
                   className="block w-full rounded-md border-1 py-2 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                />
+                {/* Add the missing onClick handler for OTP verification */}
+                <button
+                  className='border-2 py-1 rounded-2xl text-white px-4 mt-3 bg-green-600'
+                  onClick={handelotpvery}
+                >
+                  Verify
+                </button>
+              </div>
+            )}
 
-                  />
-                </div>
-              )}
 
             {/* Password Input */}
-            <div data-aos="fade-up" className={signupbuttonclick ? "hidden" : "block"}>
+            <div data-aosx="fade-up" className={signupbuttonclick ? "hidden" : "block"}>
               <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
                 Password
               </label>
@@ -218,7 +244,7 @@ const LoginSignup = ({ setToken, signup, setsignup }) => {
 
             {/* Conditional Blood Group Selection - Shown only if signup is true */}
             {signup && (
-              <div data-aos="fade-up" className={signupbuttonclick ? "hidden" : "block"}>
+              <div data-aosx="fade-up" className={signupbuttonclick ? "hidden" : "block"}>
                 <label htmlFor="bloodGroup" className="block text-sm font-medium leading-6 text-gray-900">
                   Blood Group
                 </label>
@@ -253,7 +279,7 @@ const LoginSignup = ({ setToken, signup, setsignup }) => {
 
             {/* Login and Signup Buttons */}
             {signup ? (
-              <div data-aos="fade-left0" className={signupbuttonclick ? "hidden" : "block"}>
+              <div data-aosx="fade-left0" className={signupbuttonclick ? "hidden" : "block"}>
                 <button
                   onClick={handleSignup}
                   className="w-full flex justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
@@ -263,7 +289,7 @@ const LoginSignup = ({ setToken, signup, setsignup }) => {
               </div>
             ) : (
               <>
-                <div data-aos="fade-left">
+                <div data-aosx="fade-left">
                   <button
                     onClick={handleLogin}
                     className="w-full flex justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
@@ -273,7 +299,7 @@ const LoginSignup = ({ setToken, signup, setsignup }) => {
                 </div>
 
                 {/* Create Account Button */}
-                <div className="mt-4" data-aos="fade-left">
+                <div className="mt-4" data-aosx="fade-left">
                   <button
                     onClick={() => setsignup(true)}
                     className="w-full flex justify-center rounded-md bg-gray-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-gray-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-600"
@@ -286,9 +312,9 @@ const LoginSignup = ({ setToken, signup, setsignup }) => {
 
             {/* Toggle between Login and Signup */}
             {signup && (
-              <div className="mt-4" data-aos="fade-left" >
+              <div className="mt-4" data-aosx="fade-left" >
                 <button
-                  onClick={() => setsignup(false)}
+                  onClick={() => {setsignup(false ); setsignupbutton(false)}}
                   className="w-full flex justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                 >
                   Already have an account? Login
@@ -298,7 +324,7 @@ const LoginSignup = ({ setToken, signup, setsignup }) => {
 
 
             <div>
-              { !signup &&
+              {!signup &&
                 <Link className='text-blue-700' to="/forgetPassword">Forget Password</Link>
               }
             </div>

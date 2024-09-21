@@ -10,6 +10,7 @@ function AdminPanel({ setAdminToken }) {
   const [registeredUsers, setRegisteredUsers] = useState([]);
   const [pendingHospital, setpendingHospital] = useState([]);
   const [registeredHospital, setRegisteredHospital] = useState([]);
+  const [notVerifiedUsers,setNotVerifiedUsers] = useState([]);
   const [users, setUsers] = useState([])
   const token = localStorage.getItem('adminToken')
 
@@ -24,6 +25,7 @@ function AdminPanel({ setAdminToken }) {
       setRegisteredUsers(result.data.registeredUsers);
       setpendingHospital(result.data.pendingHospitals);
       setRegisteredHospital(result.data.registeredHospitals);
+      setNotVerifiedUsers(result.data.notVerifiedUsers)
       console.log(result.data)
     } catch (error) {
       console.log("error is in fetchPendingUsers")
@@ -67,6 +69,7 @@ function AdminPanel({ setAdminToken }) {
       });
       console.log(response)
       setPendingUsers(pendingUsers.filter(user => user._id !== id));
+      setNotVerifiedUsers(notVerifiedUsers.filter(user => user._id !==id));
     } catch (error) {
       console.log("Error in handleReject");
       console.error('Request failed:', error);
@@ -128,6 +131,38 @@ function AdminPanel({ setAdminToken }) {
             </ul>
           )}
         </section>
+
+            {/* unverified user  */}
+            <section className="mb-8">
+          <h3 className="text-lg font-semibold mb-4 text-red-700">Unverified User</h3>
+          {notVerifiedUsers.length === 0 ? (
+            <p className="text-gray-500">No a single user find unverified.</p>
+          ) : (
+            <ul className="space-y-4">
+              {notVerifiedUsers.map((user) => (
+                <li key={user._id} className="bg-white shadow-lg rounded-lg p-4 flex flex-wrap justify-between items-center border border-red-200">
+                  <p className="text-gray-700 font-medium">Phone: {user.phoneNumber}</p>
+                  <div className="flex gap-2">
+                    <button
+                      className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded shadow"
+                      onClick={() => handleApprove(user._id)}
+                    >
+                      Approve
+                    </button>
+                    <button
+                      className="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded shadow"
+                      onClick={() => handleReject(user._id)}
+                    >
+                      Reject
+                    </button>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          )}
+        </section>
+
+
 
         {/* Registered Users */}
         <section className="mb-8">

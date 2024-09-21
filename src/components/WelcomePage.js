@@ -41,36 +41,11 @@ const testimonials = [
 ];
 
 
-
-
-  
-
-const events = [
-    {
-        title: "Blood Donation Drive",
-        date: "October 15, 2024",
-        location: "Community Center",
-        description: "Join us for a community blood donation drive. All donors are welcome!",
-    },
-    {
-        title: "Emergency Blood Appeal",
-        date: "November 5, 2024",
-        location: "City Hospital",
-        description: "An urgent call for blood donors to help patients in critical need.",
-    },
-    {
-        title: "Annual Blood Donation Gala",
-        date: "December 10, 2024",
-        location: "Grand Hotel",
-        description: "A gala event to celebrate and honor our dedicated blood donors.",
-    }
-];
-
 const WelcomePage = () => {
     const images = [Img, img1, img2, img3];
     const [currentIndex, setCurrentIndex] = useState(0);
     const sliderRef = useRef(null);
-    const [events,setEvents] = useState([]);
+    const [events, setEvents] = useState([]);
 
     useEffect(() => {
         AOS.init({ duration: 1000 });
@@ -95,63 +70,73 @@ const WelcomePage = () => {
 
 
 
+    const Marquee = ({ events }) => {
+        return (
+            <div className="flex w-full">
+                <span className="inline-block text-red-500 mr-2 marquee">
+                    {events.map((event, index) => {
+                        return (
+                            <span className='mr-3' key={index}>
+                                {event.eventName}
+                            </span>
+                        );
+                    })}
+                </span>
+            </div>
+        );
+    };
     
-    const Marquee = () => {
-      return (
-        <div className="flex w-full">
-          <span className="inline-block text-red-500 marquee">
-            Upcoming Events
-          </span>
-        </div>
-      );
-    }
-
+    
+// console.log("events ",events)
 
     const fetchEvents = async () => {
         try {
-          const response = await axios.get(`${BaseUrl}getEvents`);
-          console.log(response);
-          setEvents(response.data.events);
+            const response = await axios.get(`${BaseUrl}getEvents`);
+            console.log(response);
+            setEvents(response.data.events);
         } catch (error) {
-          console.error('Error fetching events:', error);
+            console.error('Error fetching events:', error);
         }
-      };
+    };
 
-      useEffect(()=> {
+    useEffect(() => {
         fetchEvents();
-      },[])
+    }, [])
 
-      function formatDateToIndian(dateString) {
+    function formatDateToIndian(dateString) {
         const date = new Date(dateString);
-    
+
         const day = String(date.getDate()).padStart(2, '0');
         const monthIndex = date.getMonth(); // Get the index of the month
         const year = date.getFullYear();
         const hours = String(date.getHours()).padStart(2, '0');
         const minutes = String(date.getMinutes()).padStart(2, '0');
-        
+
         // Array of month names
         const months = [
             'January', 'February', 'March', 'April', 'May', 'June',
             'July', 'August', 'September', 'October', 'November', 'December'
         ];
-        
+
         // Get the month name using the index
         const month = months[monthIndex];
-        
+
         return `${day} ${month} ${year}`;
     }
-    
+
 
     return (
         <div className="bg-gray-100 p-4  min-h-screen overflow-hidden">
             <marquee>
                 <a href='#upcomingevents'>
-            < Marquee/>
-            </a>
+                    < Marquee events={events} />
+                </a>
             </marquee>
+
+
+        
             <div className="container mx-auto mt-12">
-            
+
                 <div className="flex flex-col lg:flex-row items-center flex-wrap">
 
                     {/* Text Section */}
@@ -203,36 +188,36 @@ const WelcomePage = () => {
 
                 {/* Donor Section */}   {/* Testimonials Section */}
                 <div className='mt-10 mb-10'>
-                  <Carousel>
-                    <Carousel.Item interval={1000}>
-                        <img
-                            className="w-full h-80 lg:h-[500px] object-cover"
-                            src={donor1}
-                            alt="First slide"
-                        />
-                        <Carousel.Caption>
-                        </Carousel.Caption>
-                    </Carousel.Item>
-                    <Carousel.Item interval={500}>
-                        <img
-                            className="w-full h-80 lg:h-[500px] object-cover"
-                            src={donor2}
-                            alt="Second slide"
-                        />
-                        <Carousel.Caption>
-                        </Carousel.Caption>
-                    </Carousel.Item>
-                    <Carousel.Item>
-                        <img
-                            className="w-full h-80 lg:h-[500px] object-cover" 
-                            src={donor3}
-                            alt="Third slide"
-                        />
-                        <Carousel.Caption>
+                    <Carousel>
+                        <Carousel.Item interval={1000}>
+                            <img
+                                className="w-full h-80 lg:h-[500px] object-cover"
+                                src={donor1}
+                                alt="First slide"
+                            />
+                            <Carousel.Caption>
+                            </Carousel.Caption>
+                        </Carousel.Item>
+                        <Carousel.Item interval={500}>
+                            <img
+                                className="w-full h-80 lg:h-[500px] object-cover"
+                                src={donor2}
+                                alt="Second slide"
+                            />
+                            <Carousel.Caption>
+                            </Carousel.Caption>
+                        </Carousel.Item>
+                        <Carousel.Item>
+                            <img
+                                className="w-full h-80 lg:h-[500px] object-cover"
+                                src={donor3}
+                                alt="Third slide"
+                            />
+                            <Carousel.Caption>
 
-                        </Carousel.Caption>
-                    </Carousel.Item>
-                </Carousel>
+                            </Carousel.Caption>
+                        </Carousel.Item>
+                    </Carousel>
 
                 </div>
                 {/* Additional Section */}
@@ -268,7 +253,7 @@ const WelcomePage = () => {
                     </div>
                 </section>
 
-             
+
                 <section className="my-12 lg:my-20">
                     <div className="container mx-auto ">
                         <h3 className="text-3xl font-bold text-center text-gray-800 mb-8" data-aos="fade-up">
@@ -296,8 +281,8 @@ const WelcomePage = () => {
                         </div>
                     </div>
                 </section>
-                    
-                <section className="my-12 lg:my-20"  id='upcomingevents'>
+
+                <section className="my-12 lg:my-20" id='upcomingevents'>
                     <div className="container mx-auto ">
                         <h3 className="text-3xl font-bold text-center text-gray-800 mb-8" data-aos="fade-up">
                             Upcoming Events

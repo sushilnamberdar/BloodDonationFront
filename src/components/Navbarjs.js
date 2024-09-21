@@ -154,7 +154,7 @@ const Navbarjs = ({ setToken,setsignup}) => {
               }`}
               onClick={handleSignup}
             >
-              Sign Up
+              Register As a Donor
             </Nav.Link>
           </>
         )}
