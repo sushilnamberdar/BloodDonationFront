@@ -7,10 +7,6 @@ import img2 from './images/bloodDonationLogin2.jpg';
 import img3 from './images/bloodDonationLogin4.jpg';
 import img4 from './images/bloodDonationLogin4.jpg';
 
-
-import donor1 from './images/donarimage/doner1.jpg';
-import donor2 from './images/donarimage/doner2.jpg';
-import donor3 from './images/donarimage/doner4.webp';
 import donor4 from './images/donarimage/charts.png';
 import donor5 from './images/donarimage/doner2.jpg';
 import donor6 from './images/donarimage/charts.png';
@@ -24,30 +20,59 @@ import { BaseUrl } from './Util/util';
 import WelcomePageSlider from './Welcomepage/WelcomePageSlider';
 import CampaignGallery from './Welcomepage/CampaignGallery';
 
-const testimonials = [
-    {
-        name: "John Doe",
-        testimonial: "Donating blood was a simple process and I felt great knowing I was helping others. Highly recommend everyone to donate!",
-        image: donor1,
-    },
-    {
-        name: "Jane Smith",
-        testimonial: "I was nervous at first, but the staff made me feel comfortable. It’s an easy way to make a big difference.",
-        image: donor2,
-    },
-    {
-        name: "Emily Johnson",
-        testimonial: "Every donation can save lives. It's a small effort with a huge impact. Don’t hesitate to give blood!",
-        image: donor3,
-    }
-];
-
 
 const WelcomePage = () => {
+    const [donor1, setDonor1] = useState(null)
+    const [donor2, setDonor2] = useState(null)
+    const [donor3, setDonor3] = useState(null)
+
+
+
+
     const images = [Img, img1, img2, img3];
     const [currentIndex, setCurrentIndex] = useState(0);
     const sliderRef = useRef(null);
     const [events, setEvents] = useState([]);
+
+
+
+
+
+    const testimonials = [
+        {
+            name: "John Doe",
+            testimonial: "Donating blood was a simple process and I felt great knowing I was helping others. Highly recommend everyone to donate!",
+            image: donor1,
+        },
+        {
+            name: "Jane Smith",
+            testimonial: "I was nervous at first, but the staff made me feel comfortable. It’s an easy way to make a big difference.",
+            image: donor2,
+        },
+        {
+            name: "Emily Johnson",
+            testimonial: "Every donation can save lives. It's a small effort with a huge impact. Don’t hesitate to give blood!",
+            image: donor3,
+        }
+    ];
+
+
+
+    useEffect(() => {
+        const fetchImages = async () => {
+            try {
+                const response = await axios.get(`${BaseUrl}getImages`);
+                console.log(response);
+                setDonor1(response.data[0].sectionTwo.imageOne);
+                setDonor2(response.data[0].sectionTwo.imageTwo);
+                setDonor3(response.data[0].sectionTwo.imageThree);
+            } catch (error) {
+                console.error("Error fetching images:", error);
+            }
+        };
+
+        fetchImages();
+    }, []);
 
     useEffect(() => {
         AOS.init({ duration: 1000 });
@@ -94,12 +119,26 @@ const WelcomePage = () => {
     const fetchEvents = async () => {
         try {
             const response = await axios.get(`${BaseUrl}getEvents`);
-            console.log(response);
             setEvents(response.data.events);
         } catch (error) {
             console.error('Error fetching events:', error);
         }
     };
+
+
+    //  fatching images from the backeng 
+    useEffect(() => {
+        const fetchImages = async () => {
+            try {
+                const response = await axios.get(`${BaseUrl}getImages`);
+                console.log(response);
+            } catch (error) {
+                console.error("Error fetching images:", error);
+            }
+        };
+
+        fetchImages();
+    }, []);
 
     useEffect(() => {
         fetchEvents();

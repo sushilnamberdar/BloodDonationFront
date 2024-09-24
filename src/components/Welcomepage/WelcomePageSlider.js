@@ -5,19 +5,28 @@ import 'swiper/swiper-bundle.css';
 import { Navigation,Autoplay } from 'swiper/modules';
 
 // import sliderImage1 from '../images/home_1_slider_1.jpg';
-import sliderImage2 from '../images/about_feat_bg.jpg';
+// import sliderImage2 from '../images/about_feat_bg.jpg';
 import axios from 'axios';
 import { BaseUrl } from '../Util/util';
 
 const WelcomePageSlider = () => {
-const[sliderImage1,setSliderImage1]= useState('');
+  const [sliderImage1, setSliderImage1] = useState(null);
+  const [sliderImage2, setSliderImage2] = useState(null);
+  useEffect(() => {
+    const fetchImages = async () => {
+      try {
+        const response = await axios.get(`${BaseUrl}getImages`);
+        console.log(response);
+        setSliderImage1(response.data[0].sectionOne.imageOne);
+        setSliderImage2(response.data[0].sectionOne.imageTwo);
+      } catch (error) {
+        console.error("Error fetching images:", error);
+      }
+    };
 
-  useEffect(async()=>{
-    const response =  await axios.get(`${BaseUrl}getImages`);
-      console.log(response);
-     sliderImage1 = response.data.sectionOne.imageOne;
-  },[]);
-
+    fetchImages();
+  }, []);
+  // console.log(sliderImage1)
 
   return (
     <Swiper

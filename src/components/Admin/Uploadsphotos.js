@@ -40,6 +40,7 @@ const UpdateImageComponent = () => {
       formData.append('api_key', '126739441976649'); // Replace with your Cloudinary API key
       formData.append('timestamp', timestamp);
       formData.append('signature', signature);
+      // formData.append('upload_preset', 'donationApp');
 
       // Add other optional parameters as needed
       // formData.append('public_id', 'your_public_id'); // Optional, if you want to set a specific public ID
@@ -62,6 +63,7 @@ const UpdateImageComponent = () => {
         alert('Image uploaded and updated successfully!');
       }
     } catch (error) {
+      console.log(error)
       console.error('Error uploading or updating image:', error);
       alert('Error uploading or updating image');
     }
@@ -81,6 +83,8 @@ const UpdateImageComponent = () => {
             <option value="sectionOne">Section One</option>
             <option value="sectionTwo">Section Two</option>
             <option value="sectionThree">Section Three</option>
+            <option value="sectionFour">Section four</option>
+
           </select>
         </div>
   

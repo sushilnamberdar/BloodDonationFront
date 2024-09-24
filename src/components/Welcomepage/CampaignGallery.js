@@ -1,15 +1,17 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import AOS from "aos";
-import "aos/dist/aos.css"; // Import AOS styles
-import gallery1 from "./gallery_1.jpg";
-import gallery2 from "./gallery_2.jpg";
-import gallery3 from "./gallery_3.jpg";
-import gallery4 from "./gallery_4.jpg";
-import gallery5 from "./gallery_5.jpg";
-import gallery6 from "./gallery_6.jpg";
-import "./styles.css"; // Custom CSS for animation
+import "aos/dist/aos.css"; 
+import "./styles.css";
+import axios from "axios";
+import { BaseUrl } from "../Util/util";
 
 const CampaignGallery = () => {
+  const [gallery1, setGallery1] =useState(null);
+  const [gallery2, setGallery2] =useState(null);
+  const [gallery3, setGallery3] =useState(null);
+  const [gallery4, setGallery4] = useState(null);
+  const [gallery5, setGallery5] = useState(null);
+  const [gallery6, setGallery6] = useState(null);
   const images = [
     { id: 1, src: gallery1, alt: "gallery image 1", animation: "fade-up" },
     { id: 2, src: gallery2, alt: "gallery image 2", animation: "fade-up" },
@@ -18,6 +20,25 @@ const CampaignGallery = () => {
     { id: 5, src: gallery5, alt: "gallery image 5", animation: "fade-up" },
     { id: 6, src: gallery6, alt: "gallery image 6", animation: "fade-up" },
   ];
+
+  useEffect(() => {
+    const fetchImages = async () => {
+      try {
+        const response = await axios.get(`${BaseUrl}getImages`);
+        console.log(response);
+        setGallery1(response.data[0].sectionThree.imageOne);
+        setGallery2(response.data[0].sectionThree.imageTwo);
+        setGallery3(response.data[0].sectionThree.imageThree);
+        setGallery4(response.data[0].sectionFour.imageOne);
+        setGallery5(response.data[0].sectionFour.imageTwo);
+        setGallery6(response.data[0].sectionFour.imageThree);
+      } catch (error) {
+        console.error("Error fetching images:", error);
+      }
+    };
+
+    fetchImages();
+  }, []);
 
   useEffect(() => {
     AOS.init({
