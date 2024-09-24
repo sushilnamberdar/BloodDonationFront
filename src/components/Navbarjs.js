@@ -59,7 +59,7 @@ const Navbarjs = ({ setToken, setsignup }) => {
   return (
     <Navbar
       expand="lg"
-      className={`bg-body-tertiary position-sticky top-0 border z-20 font-montserrat lg:text-lg transition-all duration-300 ease-in-out ${navbarExpanded ? 'h-64' : 'h-20'}`}
+      className={`bg-body-tertiary position-sticky top-0 border z-20 font-montserrat lg:text-lg transition-all duration-300 ease-in-out ${navbarExpanded ? 'h-94' : 'h-20'}`}
       expanded={navbarExpanded}
     >
       <Container fluid style={{ paddingLeft: '0px', paddingRight: '0px' }}>
@@ -95,6 +95,8 @@ const Navbarjs = ({ setToken, setsignup }) => {
                 <Nav.Link as={Link} to="/eventsadmin" className={navbarExpanded ? 'mt-3' : ''}>Events</Nav.Link>
                 <Nav.Link as={Link} to="/admin" className={navbarExpanded ? 'mt-3' : ''}>Admin Home</Nav.Link>
                 <Nav.Link as={Link} to="/manageUsers" className={navbarExpanded ? 'mt-3' : ''}>Manage Users</Nav.Link>
+                <Nav.Link as={Link} to="/adminimageupload" className={navbarExpanded ? 'mt-3' : ''}>Images</Nav.Link>
+
                 <button
                   className={`bg-indigo-500 px-5 text-white rounded-3xl transition duration-300 hover:bg-indigo-600 ${navbarExpanded ? 'mt-3' : ''}`}
                   onClick={handleLogout}
@@ -119,7 +121,6 @@ const Navbarjs = ({ setToken, setsignup }) => {
               <>
                 <Nav.Link as={Link} to="/" className={navbarExpanded ? 'mt-3' : ''}>Home</Nav.Link>
                 <Nav.Link as={Link} to="/loginsignup" className={navbarExpanded ? 'mt-3' : ''}>Emergency Blood Request</Nav.Link>
-
                 <Nav.Link
                   as={Link}
                   to="/hospitalLoginSignup"
@@ -138,7 +139,7 @@ const Navbarjs = ({ setToken, setsignup }) => {
                 <Nav.Link
                   as={Link}
                   to="/loginsignup"
-                  className={`bg-red-400 px-4 ml-1 text-white rounded-3xl transition duration-300 hover:bg-red-500 ${navbarExpanded ? 'mt-3' : ''}`}
+                  className={`bg-red-500 px-4 ml-1 text-white rounded-3xl transition duration-300 hover:bg-red-600 ${navbarExpanded ? 'mt-3' : ''}`}
                   onClick={handleSignup}
                 >
                   Register As a Donor

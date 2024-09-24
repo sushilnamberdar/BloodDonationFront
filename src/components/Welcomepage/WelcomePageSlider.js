@@ -1,13 +1,24 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper-bundle.css';
 import 'swiper/swiper-bundle.css'; 
 import { Navigation,Autoplay } from 'swiper/modules';
 
-import sliderImage1 from './images/home_1_slider_1.jpg';
-import sliderImage2 from './images/about_feat_bg.jpg';
+// import sliderImage1 from '../images/home_1_slider_1.jpg';
+import sliderImage2 from '../images/about_feat_bg.jpg';
+import axios from 'axios';
+import { BaseUrl } from '../Util/util';
 
 const WelcomePageSlider = () => {
+const[sliderImage1,setSliderImage1]= useState('');
+
+  useEffect(async()=>{
+    const response =  await axios.get(`${BaseUrl}getImages`);
+      console.log(response);
+     sliderImage1 = response.data.sectionOne.imageOne;
+  },[]);
+
+
   return (
     <Swiper
       modules={[Navigation, Autoplay]}

@@ -21,7 +21,8 @@ import Carousel from 'react-bootstrap/Carousel';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { BaseUrl } from './Util/util';
-import WelcomePageSlider from './WelcomePageSlider';
+import WelcomePageSlider from './Welcomepage/WelcomePageSlider';
+import CampaignGallery from './Welcomepage/CampaignGallery';
 
 const testimonials = [
     {
@@ -119,7 +120,7 @@ const WelcomePage = () => {
             'July', 'August', 'September', 'October', 'November', 'December'
         ];
 
-        
+
         const month = months[monthIndex];
 
         return `${day} ${month} ${year}`;
@@ -134,12 +135,12 @@ const WelcomePage = () => {
                 </a>
             </marquee>
 
-            <WelcomePageSlider data-aos='fade-left'/>
+            <WelcomePageSlider data-aos='fade-left' />
 
             <div className="container mx-auto mt-12">
 
 
-                
+
 
                 <div className="flex flex-col lg:flex-row items-center flex-wrap">
 
@@ -291,6 +292,8 @@ const WelcomePage = () => {
                         </div>
                     </div>
                 </section>
+
+                <CampaignGallery />
 
                 <section className="my-12 lg:my-20" id='upcomingevents'>
                     <div className="container mx-auto ">

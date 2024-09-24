@@ -179,7 +179,7 @@ const HospitalLoginSignup = () => {
     <div className="min-h-screen flex flex-col bg-gray-100">
       {/* Centered Form */}
       <div className="flex-1 flex flex-col items-center justify-center px-6 py-12">
-        <div className="w-full max-w-md bg-white border-2 border-gray-300 rounded-lg p-6 shadow-md" data-aos="fade-up">
+        <div className="w-full max-w-md bg-white border-2 border-gray-300 rounded-lg p-6 shadow-md" >
           <div className="text-center">
             <img alt="Hospital Logo" src={logo} className="mx-auto h-10 w-auto" />
             <h2 className="mt-10 text-2xl font-bold leading-9 tracking-tight text-gray-900">
@@ -191,7 +191,7 @@ const HospitalLoginSignup = () => {
             <div className="space-y-6">
               {/* Hospital Name - Only for Signup */}
               {signup && (
-                <div data-aos="fade-up">
+                <div>
                   <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900">
                     Hospital /Organization Name
                   </label>
@@ -213,7 +213,7 @@ const HospitalLoginSignup = () => {
               {/* Address Fields */}
               {signup && (
                 <>
-                  <div data-aos="fade-up">
+                  <div >
                     <label htmlFor="street" className="block text-sm font-medium leading-6 text-gray-900">
                       Street Address
                     </label>
@@ -231,7 +231,7 @@ const HospitalLoginSignup = () => {
                     </div>
                   </div>
 
-                  <div data-aos="fade-up">
+                  <div >
                     <label htmlFor="city" className="block text-sm font-medium leading-6 text-gray-900">
                       City
                     </label>
@@ -249,7 +249,7 @@ const HospitalLoginSignup = () => {
                     </div>
                   </div>
 
-                  <div data-aos="fade-up">
+                  <div >
                     <label htmlFor="state" className="block text-sm font-medium leading-6 text-gray-900">
                       State
                     </label>
@@ -267,7 +267,7 @@ const HospitalLoginSignup = () => {
                     </div>
                   </div>
 
-                  <div data-aos="fade-up">
+                  <div>
                     <label htmlFor="postalCode" className="block text-sm font-medium leading-6 text-gray-900">
                       Postal Code
                     </label>
@@ -288,7 +288,7 @@ const HospitalLoginSignup = () => {
               )}
 
               {/* Contact Fields */}
-              <div data-aos="fade-up">
+              <div>
                 <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
                   Email Address
                 </label>
@@ -313,7 +313,7 @@ const HospitalLoginSignup = () => {
               </div>
 
               {/* Password */}
-              <div data-aos="fade-up">
+              <div>
                 <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
                   Password
                 </label>
@@ -333,7 +333,7 @@ const HospitalLoginSignup = () => {
 
               {/* Phone Number - Only for Signup */}
               { (
-                <div data-aos="fade-up">
+                <div>
                   <label htmlFor="phone" className="block text-sm font-medium leading-6 text-gray-900">
                     Phone Number
                   </label>
@@ -361,7 +361,7 @@ const HospitalLoginSignup = () => {
         
               {/* Website */}
               {signup && (
-                <div data-aos="fade-up">
+                <div >
                   <label htmlFor="website" className="block text-sm font-medium leading-6 text-gray-900">
                     Website
                   </label>
@@ -382,7 +382,7 @@ const HospitalLoginSignup = () => {
 
               {/* Special Instructions */}
               {signup && (
-                <div data-aos="fade-up">
+                <div >
                   <label htmlFor="specialInstructions" className="block text-sm font-medium leading-6 text-gray-900">
                     Special Instructions
                   </label>
@@ -403,7 +403,7 @@ const HospitalLoginSignup = () => {
 
               {/* Checkbox for Blood Donation Center */}
               {signup && (
-                <div className='flex items-center  ' data-aos="fade-up">
+                <div className='flex items-center  '>
                   <label htmlFor="hasBloodDonationCenter" className="block text-sm font-medium leading-6 text-gray-900">
                     Has Blood Donation Center
                   </label>
@@ -423,7 +423,7 @@ const HospitalLoginSignup = () => {
 
               {/* Action Buttons */}
               {signup ? (
-                <div data-aos="fade-left">
+                <div >
                   <button
                     onClick={handleSignup}
                     className="w-full flex justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500"
@@ -432,7 +432,7 @@ const HospitalLoginSignup = () => {
                   </button>
                 </div>
               ) : (
-                <div data-aos="fade-left">
+                <div>
                   <button
                     onClick={handleLogin}
                     className="w-full flex justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500"
@@ -443,7 +443,7 @@ const HospitalLoginSignup = () => {
               )}
 
               {/* Toggle between Login and Signup */}
-              <div className="mt-4" data-aos="fade-left">
+              <div className="mt-4">
                 <button
                   onClick={() => setSignup(!signup)}
                   className="w-full flex justify-center rounded-md bg-gray-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-gray-500"

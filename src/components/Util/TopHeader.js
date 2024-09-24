@@ -3,33 +3,36 @@ import { FaBuilding, FaPhone, FaFacebook, FaTwitter, FaGooglePlus, FaInstagram, 
 
 const TopHeader = () => {
   return (
-    <header className="bg-red-600 flex items-center justify-center text-white">
-      <div className="flex justify-center items-center flex-wrap p-2 space-x-10">
-        <div className="flex items-center justify-center flex-wrap space-x-4">
+    <header className="bg-red-600 flex flex-col md:flex-row justify-between items-center text-white py-2 px-4">
+      {/* Left Side: Contact Information */}
+      <div className="flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-4">
+        <div className="flex items-center">
           <FaBuilding />
-          <span><strong>Contact:</strong> East Shibgonj, Sylhet, 3100</span>
-          <span className="mx-4 flex items-center justify-center">
-            <FaPhone /> <strong>Call Us:</strong> +880-1891-82709
-          </span>
+          <span className="ml-2"><strong>Contact:</strong> East Shibgonj, Sylhet, 3100</span>
         </div>
-        <div className="flex items-center justify-center space-x-4">
-          {/* Social Media Icons with hover effect */}
-          <a href="#" className="text-white hover:text-gray-500 transition duration-300">
-            <FaFacebook />
-          </a>
-          <a href="#" className="text-white hover:text-gray-500 transition duration-300">
-            <FaTwitter />
-          </a>
-          <a href="#" className="text-white hover:text-gray-500 transition duration-300">
-            <FaGooglePlus />
-          </a>
-          <a href="#" className="text-white hover:text-gray-500 transition duration-300">
-            <FaInstagram />
-          </a>
-          <a href="#" className="text-white hover:text-gray-500 transition duration-300">
-            <FaYoutube />
-          </a>
+        <div className="flex items-center">
+          <FaPhone />
+          <span className="ml-2"><strong>Call Us:</strong> +880-1891-82709</span>
         </div>
+      </div>
+
+      {/* Right Side: Social Media Icons */}
+      <div className="flex space-x-4 mt-2 md:mt-0">
+        <a href="#" className="text-white hover:text-gray-500 transition duration-300">
+          <FaFacebook />
+        </a>
+        <a href="#" className="text-white hover:text-gray-500 transition duration-300">
+          <FaTwitter />
+        </a>
+        <a href="#" className="text-white hover:text-gray-500 transition duration-300">
+          <FaGooglePlus />
+        </a>
+        <a href="#" className="text-white hover:text-gray-500 transition duration-300">
+          <FaInstagram />
+        </a>
+        <a href="#" className="text-white hover:text-gray-500 transition duration-300">
+          <FaYoutube />
+        </a>
       </div>
     </header>
   );

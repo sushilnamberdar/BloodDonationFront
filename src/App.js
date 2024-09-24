@@ -30,6 +30,7 @@ import UserProfile from './components/UserProfile';
 import EventsAdmin from './components/EventsAdmin';
 import ForgetPassword from './components/ForgetPassword';
 import TopHeader from './components/Util/TopHeader'
+import UpdateImageComponent from './components/Admin/Uploadsphotos';
 function App() {
 
   const [token, setToken] = useState('');
@@ -77,6 +78,7 @@ function App() {
           <Route path='/userprofile' element={<UserProfile/>}/>
           <Route path='/eventsadmin' element={<EventsAdmin/>}/>
           <Route path='/forgetPassword' element={<ForgetPassword/>}/>
+          <Route path='/adminimageupload' element={<UpdateImageComponent/>} />
         </Routes>
       </div>
        <Footer/>
