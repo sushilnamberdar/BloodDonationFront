@@ -8,11 +8,12 @@ const TopHeader = () => {
       <div className="flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-4">
         <div className="flex items-center">
           <FaBuilding />
-          <span className="ml-2"><strong>Contact:</strong> East Shibgonj, Sylhet, 3100</span>
+          
+          <a href="https://www.google.com/maps/dir/29.1755814,75.7279962/29.1755026,75.727792/@29.1755171,75.7253194,17z/data=!3m1!4b1!4m5!4m4!1m1!4e1!1m1!4e1?entry=ttu&g_ep=EgoyMDI0MDkxOC4xIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener noreferrer"><span className="ml-2"><strong>Contact:</strong> IINSAF OFFICE SUNDAR NAGAR MAIN GATE </span></a>
         </div>
         <div className="flex items-center">
           <FaPhone />
-          <span className="ml-2"><strong>Call Us:</strong> +880-1891-82709</span>
+          <span className="ml-2"><strong>Call Us:</strong> +91 999-1992-492</span>
         </div>
       </div>
 
