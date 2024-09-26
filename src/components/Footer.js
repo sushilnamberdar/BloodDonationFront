@@ -39,7 +39,7 @@ const Footer = () => {
           </div>
         </div>
         <div className="border-t border-gray-700 mt-8 pt-4 text-center">
-          <p className="text-gray-400 text-sm">&copy; 2024 Blood Donation Hub. All rights reserved.</p>
+          <p className="text-gray-400 text-sm">&copy; Developed by Iinsaf Team . All rights reserved.</p>
         </div>
       </div>
     </footer>

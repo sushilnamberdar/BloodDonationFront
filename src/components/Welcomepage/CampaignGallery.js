@@ -25,7 +25,6 @@ const CampaignGallery = () => {
     const fetchImages = async () => {
       try {
         const response = await axios.get(`${BaseUrl}getImages`);
-        console.log(response);
         setGallery1(response.data[0].sectionThree.imageOne);
         setGallery2(response.data[0].sectionThree.imageTwo);
         setGallery3(response.data[0].sectionThree.imageThree);

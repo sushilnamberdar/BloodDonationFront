@@ -86,7 +86,7 @@ const AdminManageUsers = () => {
   };
 
   return (
-    <div className="p-4">
+    <div className="p-4 min-h-screen">
       {/* Modal for confirmation */}
       <ConfirmationModal
         isOpen={isModalOpen}

@@ -61,7 +61,7 @@ const WelcomePageSlider = () => {
               Donate Now
             </a>
             <a href="#" className="btn btn-theme-invert border border-white text-white py-2 px-6 rounded">
-              CALL: 411-009-872-333
+              CALL: +91 999-1992-492
             </a>
           </div>
         </div>

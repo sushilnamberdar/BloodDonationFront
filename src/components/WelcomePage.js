@@ -33,7 +33,7 @@ const WelcomePage = () => {
     const [currentIndex, setCurrentIndex] = useState(0);
     const sliderRef = useRef(null);
     const [events, setEvents] = useState([]);
-
+    const [videoUrl, setVideoUrl] = useState(null);
 
 
 
@@ -66,6 +66,7 @@ const WelcomePage = () => {
                 setDonor1(response.data[0].sectionTwo.imageOne);
                 setDonor2(response.data[0].sectionTwo.imageTwo);
                 setDonor3(response.data[0].sectionTwo.imageThree);
+                setVideoUrl(response.data[0].sectionFive.videoOne)
             } catch (error) {
                 console.error("Error fetching images:", error);
             }
@@ -131,7 +132,6 @@ const WelcomePage = () => {
         const fetchImages = async () => {
             try {
                 const response = await axios.get(`${BaseUrl}getImages`);
-                console.log(response);
             } catch (error) {
                 console.error("Error fetching images:", error);
             }
@@ -207,11 +207,27 @@ const WelcomePage = () => {
 
                     {/* Image Section */}
                     <div data-aos="fade-left" className="w-full lg:w-1/2 p-4 lg:p-6">
-                        <img
+                        {/* <img
                             src={images[currentIndex]}
                             alt="Blood Donation"
                             className="rounded-lg shadow-lg object-cover w-full h-64 sm:h-80 lg:h-96"
-                        />
+                        /> */}
+                        <video className="w-full max-w-3xl rounded-lg shadow-lg"
+
+                            src={videoUrl}
+                            autoPlay
+                            loop
+                            muted // This ensures the video starts muted, allowing autoplay to work
+                            playsInline // Helps autoplay on mobile devices
+                            controls={false} // Hide default controls
+                        >
+                            {videoUrl ? (
+                                <source src={videoUrl} type="video/mp4" />
+                            ) : (
+                                <p>Loading video...</p>
+                            )}
+                            Your browser does not support the video tag.
+                        </video>
                     </div>
                 </div>
 
