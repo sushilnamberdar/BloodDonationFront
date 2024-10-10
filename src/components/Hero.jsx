@@ -6,6 +6,7 @@ import Aos from 'aos';
 import 'aos/dist/aos.css';
 import Accordion from 'react-bootstrap/Accordion';
 import { FaHeartbeat, FaHandHoldingHeart, FaTint } from 'react-icons/fa';
+import {BaseUrl} from './Util/util'
 
 const Hero = ({ setToken }) => {
   const [donaters, setDonaters] = useState([]);
@@ -23,7 +24,7 @@ const Hero = ({ setToken }) => {
 
     if (location.latitude && location.longitude) {
       try {
-        const response = await axios.get('http://localhost:7000/getLocation', {
+        const response = await axios.get(`${BaseUrl}/getLocation`, {
           params: { location },
           headers: { Authorization: token },
         });
