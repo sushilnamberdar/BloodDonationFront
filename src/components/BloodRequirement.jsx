@@ -272,7 +272,6 @@ const BloodRequirement = ({ setToken }) => {
                     <button className="form-button !bg-red-400 hover:!bg-red-500" onClick={bloodRequest}>
                         Request Blood
                     </button><br />
-                    {successMessage && <p className="success-message">{successMessage}</p>}
                     <br />
                     <button onClick={getSentRequests}>My Requests</button>
                 </div>
