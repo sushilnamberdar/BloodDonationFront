@@ -35,3 +35,27 @@
 
 
   
+/* Scrollbar for WebKit browsers */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent; /* Hide the track */
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 10px;
+  border: 3px solid transparent;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
+}
+
+/* Scrollbar for Firefox */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: #888 transparent;
+}

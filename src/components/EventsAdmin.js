@@ -21,7 +21,7 @@ const EventsAdmin = () => {
  
   const fetchEvents = async () => {
     try {
-      const response = await axios.get(`${BaseUrl}getEvents`);
+      const response = await axios.get(`${BaseUrl}/getEvents`);
       console.log(response);
       setEvents(response.data.events);
     } catch (error) {
@@ -33,7 +33,7 @@ const EventsAdmin = () => {
     e.preventDefault();
     const token = localStorage.getItem('adminToken');
     try {
-      const response = await axios.post(`${BaseUrl}setNewEvent`, newEvent, {
+      const response = await axios.post(`${BaseUrl}/setNewEvent`, newEvent, {
         headers: { Authorization: token }
       });
       setEvents([...events, response.data]);
@@ -51,7 +51,7 @@ const EventsAdmin = () => {
   const handleDeleteEvent = async (id) => {
     try {
       const token = localStorage.getItem('adminToken');
-      const respose = await axios.delete(`${BaseUrl}deleteEvent`, {
+      const respose = await axios.delete(`${BaseUrl}/deleteEvent`, {
         params: { id: id },
         headers: { Authorization: token }
       });

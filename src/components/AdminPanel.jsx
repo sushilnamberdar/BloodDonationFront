@@ -20,7 +20,7 @@ function AdminPanel({ setAdminToken }) {
 
   const fetchPendingUsers = async () => {
     try {
-      const result = await axios.get(`${BaseUrl}pending-users`, { headers: { Authorization: token } });
+      const result = await axios.get(`${BaseUrl}/pending-users`, { headers: { Authorization: token } });
       setPendingUsers(result.data.pendingUsers);
       setRegisteredUsers(result.data.registeredUsers);
       setpendingHospital(result.data.pendingHospitals);
@@ -36,7 +36,7 @@ function AdminPanel({ setAdminToken }) {
 
   const handleApprove = async (id) => {
     try {
-      await axios.put(`${BaseUrl}approve-user`, { id }, {
+      await axios.put(`${BaseUrl}/approve-user`, { id }, {
         headers: { Authorization: token }
       });
       setPendingUsers(pendingUsers.filter(user => user._id !== id));
@@ -49,7 +49,7 @@ function AdminPanel({ setAdminToken }) {
 
   const handleHospitalApprove = async (id) => {
     try {
-      await axios.put(`${BaseUrl}approve-hospital`, { id }, {
+      await axios.put(`${BaseUrl}/approve-hospital`, { id }, {
         headers: { Authorization: token }
       });
       setpendingHospital(pendingHospital.filter(user => user._id !== id));
@@ -63,7 +63,7 @@ function AdminPanel({ setAdminToken }) {
   const handleReject = async (id) => {
     console.log(id)
     try {
-      const response = await axios.delete(`${BaseUrl}reject-user`, {
+      const response = await axios.delete(`${BaseUrl}/reject-user`, {
         params: { id },
         headers: { Authorization: token }
       });
@@ -79,7 +79,7 @@ function AdminPanel({ setAdminToken }) {
   const handleRejectHospital = async (id) => {
     console.log(id)
     try {
-      const response = await axios.delete(`${BaseUrl}reject-hospital`, {
+      const response = await axios.delete(`${BaseUrl}/reject-hospital`, {
         params: { id },
         headers: { Authorization: token }
       });

@@ -46,7 +46,7 @@ const AdminManageUsers = () => {
   // Fetch users and hospitals data
   const fetchPendingData = async () => {
     try {
-      const result = await axios.get(`${BaseUrl}pending-users`, { headers: { Authorization: token } });
+      const result = await axios.get(`${BaseUrl}/pending-users`, { headers: { Authorization: token } });
       setRegisteredUsers(result.data.registeredUsers);
       setRegisteredHospital(result.data.registeredHospitals);
     } catch (error) {
@@ -66,14 +66,14 @@ const AdminManageUsers = () => {
     setIsModalOpen(false); // Close the modal
     try {
       if (deleteType === 'user') {
-        const response = await axios.delete(`${BaseUrl}reject-user`, {
+        const response = await axios.delete(`${BaseUrl}/reject-user`, {
           params: { id: selectedId },
           headers: { Authorization: token },
         });
         setRegisteredUsers((prevUsers) => prevUsers.filter((user) => user._id !== selectedId));
         toast.success(response.data.message);
       } else if (deleteType === 'hospital') {
-        const response = await axios.delete(`${BaseUrl}reject-hospital`, {
+        const response = await axios.delete(`${BaseUrl}/reject-hospital`, {
           params: { id: selectedId },
           headers: { Authorization: token },
         });

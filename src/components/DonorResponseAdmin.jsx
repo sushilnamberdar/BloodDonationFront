@@ -30,7 +30,7 @@ const DonorResponseAdmin = () => {
         const token = localStorage.getItem("adminToken");
         try {
             const response = await axios.get(
-                `${BaseUrl}getDonorsResponsesAdmin`,
+                `${BaseUrl}/getDonorsResponsesAdmin`,
                 {
                     params: { requestId: requestNumber },
                     headers: { Authorization: token }
@@ -47,7 +47,7 @@ const DonorResponseAdmin = () => {
     const handeldelte = async () => {
         const token = localStorage.getItem('adminToken');
         try {
-          const response = await axios.delete(`${BaseUrl}deleteBloodRequestAdmin`,
+          const response = await axios.delete(`${BaseUrl}/deleteBloodRequestAdmin`,
             {
               params: {id: requestNumber },
               headers: { Authorization: token }

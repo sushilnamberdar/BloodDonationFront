@@ -17,7 +17,7 @@ const ForgetPassword = () => {
     setLoading(true);
 
     try {
-      const response = await axios.post(`${BaseUrl}forgetPassword`, { email });
+      const response = await axios.post(`${BaseUrl}/forgetPassword`, { email });
       console.log(response);
       setEmailSent(true);
       toast.success(response.data.message);
@@ -33,7 +33,7 @@ const ForgetPassword = () => {
     setLoading(true);
 
     try {
-      const response = await axios.post(`${BaseUrl}verifyOtp`, { email, otp, newPassword });
+      const response = await axios.post(`${BaseUrl}/verifyOtp`, { email, otp, newPassword });
       console.log(response);
       toast.success(response.data.message);
     } catch (error) {

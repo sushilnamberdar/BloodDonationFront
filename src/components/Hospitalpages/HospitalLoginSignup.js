@@ -108,7 +108,7 @@ const HospitalLoginSignup = () => {
 
    
     try {
-      const response = await axios.post(`${BaseUrl}loginHospital`, { contact:formData.contact, password: formData.password }); // Use email and password for login
+      const response = await axios.post(`${BaseUrl}/loginHospital`, { contact:formData.contact, password: formData.password }); // Use email and password for login
       localStorage.setItem('htoken', response.data.token);  // Store htoken in localStorage
       setToken(response.data.token);  
       console.log(response)// Update state with token
@@ -129,7 +129,7 @@ const HospitalLoginSignup = () => {
       return; // Stop function execution if location is null
     }
     try {
-      const response = await axios.post(`${BaseUrl}hospitalSignup`, formData).then((response)=> {
+      const response = await axios.post(`${BaseUrl}/hospitalSignup`, formData).then((response)=> {
         window.scroll(0,0)
         toast.success(`${response.data.message} status: ${response.data.data.status}`);
       });  // Pass the entire formData object

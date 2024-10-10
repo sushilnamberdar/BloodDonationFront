@@ -61,7 +61,7 @@ const WelcomePage = () => {
     useEffect(() => {
         const fetchImages = async () => {
             try {
-                const response = await axios.get(`${BaseUrl}getImages`);
+                const response = await axios.get(`${BaseUrl}/getImages`);
                 console.log(response);
                 setDonor1(response.data[0].sectionTwo.imageOne);
                 setDonor2(response.data[0].sectionTwo.imageTwo);
@@ -119,7 +119,7 @@ const WelcomePage = () => {
 
     const fetchEvents = async () => {
         try {
-            const response = await axios.get(`${BaseUrl}getEvents`);
+            const response = await axios.get(`${BaseUrl}/getEvents`);
             setEvents(response.data.events);
         } catch (error) {
             console.error('Error fetching events:', error);
@@ -131,7 +131,7 @@ const WelcomePage = () => {
     useEffect(() => {
         const fetchImages = async () => {
             try {
-                const response = await axios.get(`${BaseUrl}getImages`);
+                const response = await axios.get(`${BaseUrl}/getImages`);
             } catch (error) {
                 console.error("Error fetching images:", error);
             }

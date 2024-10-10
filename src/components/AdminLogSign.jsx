@@ -17,7 +17,7 @@ export default function AdminLogSign({ setAdminToken }) {
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post(`${BaseUrl}adminLogin`, { phoneNumber, password });
+            const response = await axios.post(`${BaseUrl}/adminLogin`, { phoneNumber, password });
             localStorage.setItem('adminToken', response.data.token);
             setAdminToken(response.data.token);
             console.log(response);

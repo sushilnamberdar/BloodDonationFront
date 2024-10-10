@@ -20,7 +20,7 @@ const HospitalDetails = () => {
             if (requestId) {
                 const token = localStorage.getItem('adminToken');
                 try {
-                    const response = await axios.get(`${BaseUrl}hospital-details`, {
+                    const response = await axios.get(`${BaseUrl}/hospital-details`, {
                         headers: { Authorization: token },
                         params: { requestId: requestId }
                     });
@@ -30,7 +30,7 @@ const HospitalDetails = () => {
                     setPreviousDonationRequests(response.data.previousDonationRequests || []);
                     
                     // Example for fetching donation requests
-                    // const donationResponse = await axios.get(`${BaseUrl}donation-requests`, {
+                    // const donationResponse = await axios.get(`${BaseUrl}/donation-requests`, {
                     //     headers: { Authorization: token },
                     //     params: { requestId: requestId }
                     // });

@@ -48,7 +48,7 @@ const HospitalDonationDetails = () => {
     const fetchDonationDetails = async () => {
       const token = localStorage.getItem('token');
       try {
-        const response = await axios.get(`${BaseUrl}hospitlDonationDetail`, {
+        const response = await axios.get(`${BaseUrl}/hospitlDonationDetail`, {
           params: { donaterId: donationId },
           headers: { Authorization: token },
         });
@@ -102,7 +102,7 @@ const HospitalDonationDetails = () => {
     }
 
     try {
-      const response = await axios.post(`${BaseUrl}addDonorToTheHospitalRequest`, data, {
+      const response = await axios.post(`${BaseUrl}/addDonorToTheHospitalRequest`, data, {
         headers: { Authorization: token },
       });
       window.scroll(0,0);

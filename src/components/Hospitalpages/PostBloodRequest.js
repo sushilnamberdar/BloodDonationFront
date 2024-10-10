@@ -26,7 +26,7 @@ const PostBloodRequest = () => {
     }
     const token = localStorage.getItem('htoken')
     try {
-      const response = await axios.post(`${BaseUrl}sendBloodRequestHospital`, formData,{
+      const response = await axios.post(`${BaseUrl}/sendBloodRequestHospital`, formData,{
         headers: { Authorization: token }});
       setSuccess('Request sent successfully!');
       setError('');

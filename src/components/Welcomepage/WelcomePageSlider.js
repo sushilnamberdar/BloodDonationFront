@@ -15,7 +15,7 @@ const WelcomePageSlider = () => {
   useEffect(() => {
     const fetchImages = async () => {
       try {
-        const response = await axios.get(`${BaseUrl}getImages`);
+        const response = await axios.get(`${BaseUrl}/getImages`);
         console.log(response);
         setSliderImage1(response.data[0].sectionOne.imageOne);
         setSliderImage2(response.data[0].sectionOne.imageTwo);

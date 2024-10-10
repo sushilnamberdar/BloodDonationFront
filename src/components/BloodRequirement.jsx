@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import './styles/BloodRequirement.css'
 import { Link, useLocation } from 'react-router-dom';
 import userEvent from '@testing-library/user-event';
+import { BaseUrl } from './Util/util';
 
 const BloodRequirement = ({ setToken }) => {
     const [requests, setRequests] = useState([]);
@@ -50,7 +51,7 @@ const BloodRequirement = ({ setToken }) => {
         const token = localStorage.getItem('token')
 
         try {
-            const response = await axios.post('http://localhost:7000/addCamp', formData, {
+            const response = await axios.post(`${BaseUrl}/addCamp`, formData, {
                 headers: {
                     Authorization: token
                 }
@@ -115,7 +116,7 @@ const BloodRequirement = ({ setToken }) => {
             const userData = { bloodGroup, location, name };
             const token = localStorage.getItem("token")
             try {
-                const response = await axios.post("http://localhost:7000/sendBloodRequest", userData, {
+                const response = await axios.post(`${BaseUrl}/sendBloodRequest`, userData, {
                     headers: { Authorization: token }
                 });
                 setSuccessMessage('Blood request sent successfully!');
@@ -133,7 +134,7 @@ const BloodRequirement = ({ setToken }) => {
     const getSentRequests = async () => {
         const token = localStorage.getItem("token")
         try {
-            const response = await axios.get("http://localhost:7000/getUploadedRequest",
+            const response = await axios.get(`${BaseUrl}/getUploadedRequest`,
 
                 {
                     headers: { Authorization: token }
@@ -149,7 +150,7 @@ const BloodRequirement = ({ setToken }) => {
     const getSentCampRequests = async (req, res) => {
         const token = localStorage.getItem('token');
         try {
-            const response = await axios.get("http://localhost:7000/getUserCamps", {
+            const response = await axios.get(`${BaseUrl}/getUserCamps`, {
 
                 headers: { Authorization: token },
             })
@@ -162,7 +163,7 @@ const BloodRequirement = ({ setToken }) => {
     const deleteCamp = async (campId) => {
         const token = localStorage.getItem('token');
         try {
-            const response = await axios.delete("http://localhost:7000/deleteCamp", {
+            const response = await axios.delete(`${BaseUrl}/deleteCamp`, {
                 params: {
                     campId: campId
                 },

@@ -32,7 +32,7 @@ const DonorResponse = ({ setToken }) => {
     const token = localStorage.getItem("token");
     try {
       const response = await axios.get(
-        `${BaseUrl}getDonorsResponses`,
+        `${BaseUrl}/getDonorsResponses`,
         {
           params: { requestId: requestNumber },
           headers: { Authorization: token }
@@ -51,7 +51,7 @@ const DonorResponse = ({ setToken }) => {
     console.log(requestNumber);
     const token = localStorage.getItem('token');
     try {
-      const response = axios.post(`${BaseUrl}approveDonation`,
+      const response = axios.post(`${BaseUrl}/approveDonation`,
         { donorId, donationId: requestNumber },
         {
           headers: { Authorization: token }
@@ -67,7 +67,7 @@ const DonorResponse = ({ setToken }) => {
   const handeldelte = async () => {
     const token = localStorage.getItem('token');
     try {
-      const response = await axios.delete(`${BaseUrl}deleteBloodRequestUser`,
+      const response = await axios.delete(`${BaseUrl}/deleteBloodRequestUser`,
         {
           params: {id: requestNumber },
           headers: { Authorization: token }

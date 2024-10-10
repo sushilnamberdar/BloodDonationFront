@@ -46,7 +46,7 @@ console.log(leftsideimage)
               </div>
             </div>
             <div className='mt-3'>
-            <Link to='/' className="mt-6  mt-2 px-4 py-2 bg-red-600 text-white font-semibold rounded-md hover:bg-red-700">
+            <Link to='/home' className="mt-6  mt-2 px-4 py-2 bg-red-600 text-white font-semibold rounded-md hover:bg-red-700">
               Sign Up to Donate
             </Link>
             </div>

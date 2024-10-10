@@ -13,7 +13,7 @@ const Home = () => {
         const fetchRequests = async () => {
             const token = localStorage.getItem('htoken');
             try {
-                const response = await axios.get(`${BaseUrl}getHospitalRequests`, {
+                const response = await axios.get(`${BaseUrl}/getHospitalRequests`, {
                     headers: { Authorization: token }
                 });
                 setActiveRequests(response.data.activeRequests);

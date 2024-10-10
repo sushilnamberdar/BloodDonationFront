@@ -20,7 +20,7 @@ const UserDetails = () => {
             if (requestId) {
                 const token = localStorage.getItem('adminToken');
                 try {
-                    const response = await axios.get(`${BaseUrl}userDetails`, {
+                    const response = await axios.get(`${BaseUrl}/userDetails`, {
                         headers: { Authorization: token },
                         params: { requestId: requestId }
                     });

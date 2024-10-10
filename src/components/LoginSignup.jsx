@@ -83,7 +83,7 @@ const LoginSignup = ({ setToken, signup, setsignup }) => {
     }
 
     try {
-      const response = await axios.post(`${BaseUrl}loginUser`, { phoneNumber, password, location });
+      const response = await axios.post(`${BaseUrl}/loginUser`, { phoneNumber, password, location });
       localStorage.setItem('token', response.data.token);
       setToken(response.data.token);
       console.log(response);
@@ -98,7 +98,7 @@ const LoginSignup = ({ setToken, signup, setsignup }) => {
   };
 
   const handleSignup = async () => {
-    axios.post(`${BaseUrl}addUser`, { phoneNumber, password, bloodGroup, email })
+    axios.post(`${BaseUrl}/addUser`, { phoneNumber, password, bloodGroup, email })
       .then((response) => {
         console.log(response.data);
         toast.success(`signup successfull wait for the admin response status:  ${response.data}`);
@@ -118,7 +118,7 @@ const LoginSignup = ({ setToken, signup, setsignup }) => {
   const handelotpvery = async () => {
 
     try {
-      const response = await axios.post(`${BaseUrl}verifyOtp`, { email, otp });
+      const response = await axios.post(`${BaseUrl}/verifyOtp`, { email, otp });
       console.log(response.data);
       window.scroll(0,0)
       toast.success(response.data.message);

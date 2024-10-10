@@ -40,7 +40,7 @@ const DonationDetails = ({ setToken }) => {
         const getDonationDetails = async () => {
             try {
                 const token = localStorage.getItem("token")
-                const response = await axios.get(`${BaseUrl}donatersDetail`, {
+                const response = await axios.get(`${BaseUrl}/donatersDetail`, {
                     params: { donaterId: donationId },
                     headers: { Authorization: token }
                 });
@@ -100,7 +100,7 @@ const DonationDetails = ({ setToken }) => {
 
 
         try {
-            const response = await axios.post(`${BaseUrl}addDonorToTheRequest`, data, {
+            const response = await axios.post(`${BaseUrl}/addDonorToTheRequest`, data, {
                 headers: { Authorization: token }
             });
 

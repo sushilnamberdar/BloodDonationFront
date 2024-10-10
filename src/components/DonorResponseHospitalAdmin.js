@@ -16,7 +16,7 @@ const DonorResponseHospitalAdmin = () => {
             const requestId = queryParams.get('requestId');
     
             try {
-                const response = await axios.get(`${BaseUrl}getHospitalDonorsResponsesAdmin`, {
+                const response = await axios.get(`${BaseUrl}/getHospitalDonorsResponsesAdmin`, {
                     params: { requestId: requestId },
                     headers: { Authorization: token }  // Use token directly without Bearer
                 });

@@ -21,7 +21,7 @@ const HospitalDonorsResponsesDetails = () => {
       const token = localStorage.getItem('htoken');
 
       try {
-        const response = await axios.get(`${BaseUrl}getHospitalDonorsResponses`, {
+        const response = await axios.get(`${BaseUrl}/getHospitalDonorsResponses`, {
           params: { requestId: donationId },
           headers: { Authorization: token }
         });
@@ -41,7 +41,7 @@ const HospitalDonorsResponsesDetails = () => {
       const token = localStorage.getItem('htoken');
 
       try {
-        const response = await axios.get(`${BaseUrl}getHospitalDonorsResponses`, {
+        const response = await axios.get(`${BaseUrl}/getHospitalDonorsResponses`, {
           params: { requestId: donationId ,phoneNumber:phoneNumber},
           headers: { Authorization: token }
         });
@@ -61,7 +61,7 @@ const HospitalDonorsResponsesDetails = () => {
 
     try {
         const response = await axios.post(
-            `${BaseUrl}approveHospitalDonation`,
+            `${BaseUrl}/approveHospitalDonation`,
             { donorId: donorId, donationId: donationId },
              {headers:{ Authorization: token}}
         );

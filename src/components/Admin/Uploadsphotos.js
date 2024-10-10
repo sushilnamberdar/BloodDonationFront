@@ -42,7 +42,7 @@ const UpdateMediaComponent = () => {
     setIsUploading(true); // Set uploading state to true
 
     try {
-      const signatureResponse = await axios.get(`${BaseUrl}signature`,{
+      const signatureResponse = await axios.get(`${BaseUrl}/signature`,{
         headers:{
           authorization:token
         }}
@@ -62,7 +62,7 @@ const UpdateMediaComponent = () => {
 
       const imageUrl = cloudinaryResponse.data.secure_url;
 
-      const updateResponse = await axios.put(`${BaseUrl}updateImage`, {
+      const updateResponse = await axios.put(`${BaseUrl}/updateImage`, {
         section: selectedSection,
         imageNumber: selectedImageNumber,
         imageUrl,
@@ -95,7 +95,7 @@ const UpdateMediaComponent = () => {
 
     setIsUploading(true); // Set uploading state to true
     try {
-      const signatureResponse = await axios.get(`${BaseUrl}signature`,
+      const signatureResponse = await axios.get(`${BaseUrl}/signature`,
         {
           headers: {
             authorization: token,
@@ -116,7 +116,7 @@ const UpdateMediaComponent = () => {
       );
       console.log(cloudinaryResponse);
       const imageUrl = cloudinaryResponse.data.secure_url;
-      const updateResponse = await axios.put(`${BaseUrl}updateImage`, {
+      const updateResponse = await axios.put(`${BaseUrl}/updateImage`, {
         section: selectedSection,
         imageNumber: selectedVideoNumber,
         imageUrl,

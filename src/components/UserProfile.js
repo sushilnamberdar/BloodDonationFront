@@ -13,7 +13,7 @@ const UserProfile = () => {
     const userDetails = async () => {
       const token = localStorage.getItem('token');
       try {
-        const response = await axios.get(`${BaseUrl}profileDetails`, {
+        const response = await axios.get(`${BaseUrl}/profileDetails`, {
           headers: { Authorization: token },
         });
         setUser(response.data.user);
