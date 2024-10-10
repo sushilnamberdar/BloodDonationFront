@@ -4,6 +4,7 @@ import './styles/BloodRequirement.css'
 import { Link, useLocation } from 'react-router-dom';
 import userEvent from '@testing-library/user-event';
 import { BaseUrl } from './Util/util';
+import { toast } from 'react-toastify';
 
 const BloodRequirement = ({ setToken }) => {
     const [requests, setRequests] = useState([]);
@@ -21,6 +22,7 @@ const BloodRequirement = ({ setToken }) => {
     const [endDate, setEndDate] = useState('');
     const [campRequests, setCampRequests] = useState([]);
     const [maxEndDate, setMaxEndDate] = useState('');
+    const [campDisplay, setcampDisplay] = useState(false);
 
     // Get today's date in 'YYYY-MM-DD' format
     const currentDate = new Date().toISOString().split('T')[0];
@@ -58,6 +60,7 @@ const BloodRequirement = ({ setToken }) => {
             });
             console.log('Camp Data submitted successfully:', response.data);
             getSentCampRequests();
+            toast.success("Camp Added Successfull")
         } catch (error) {
             console.error('Error submitting data:', error);
         }
@@ -119,11 +122,11 @@ const BloodRequirement = ({ setToken }) => {
                 const response = await axios.post(`${BaseUrl}/sendBloodRequest`, userData, {
                     headers: { Authorization: token }
                 });
-                setSuccessMessage('Blood request sent successfully!');
+                toast.success("Successfully Submitted a Blood request")
                 console.log("response is this from =>", response.data);
             } catch (error) {
                 console.error('Request failed:', error);
-                setSuccessMessage('Failed to send blood request. Please try again.');
+                toast.error('Failed to send blood request. Please try again.')
             }
         }
 
@@ -275,9 +278,14 @@ const BloodRequirement = ({ setToken }) => {
                 </div>
             </div>
 
-
-            <h2 className="text-2xl font-bold mb-4">Posted Camps</h2>
-            <div className="flex flex-wrap  justify-center gap-4">
+            <div className='flex items-center justify-center'>
+                <h2 className="text-2xl font-bold mb-4">Posted Camps</h2>
+                <button
+                    onClick={() => setcampDisplay(prevState => !prevState)} // Toggles the state
+                    className='bg-blue-500 mb-4 ml-3 px-2 text-white py-2 rounded-full hover:bg-blue-600'>
+                    {campDisplay ? 'Hide Camps' : 'Show Camps'} {/* Conditionally render button text */}
+                </button>            </div>
+            {campDisplay && <div className="flex flex-wrap  justify-center gap-4">
                 {campRequests.length > 0 ? (
                     campRequests.map((camp) => (
                         <div
@@ -301,7 +309,7 @@ const BloodRequirement = ({ setToken }) => {
                 ) : (
                     <p className="text-gray-500">No camps posted yet.</p>
                 )}
-            </div>
+            </div>}
 
 
             <h2>Your Requests</h2>
