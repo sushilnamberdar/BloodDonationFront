@@ -101,7 +101,7 @@ const WelcomePage = () => {
     const Marquee = ({ events }) => {
         return (
             <div className="flex w-full">
-                <span className="inline-block text-red-500 mr-2 marquee">
+                <span className="inline-block text-4xl mb-1 text-red-500 mr-2 marquee">
                     {events.map((event, index) => {
                         return (
                             <span className='mr-3' key={index}>
