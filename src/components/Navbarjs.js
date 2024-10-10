@@ -2,11 +2,10 @@ import React, { useEffect, useState, useRef } from 'react';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import NavDropdown from 'react-bootstrap/NavDropdown';
-import logo from './images/iinsaf.png';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import logo2 from '../images/favicon.png'
+import logo from './images/iinsaf.png';
+import logo2 from '../images/favicon.png';
 
 const Navbarjs = ({ setToken, setsignup }) => {
   const navigate = useNavigate();
@@ -19,11 +18,11 @@ const Navbarjs = ({ setToken, setsignup }) => {
   useEffect(() => {
     const token = localStorage.getItem('token');
     const htoken = localStorage.getItem('htoken');
-    const atoken = localStorage.getItem('adminToken')
+    const atoken = localStorage.getItem('adminToken');
     settoken(token);
     sethtoken(htoken);
     setatoken(atoken);
-  },);
+  });
 
   const handleLogout = () => {
     localStorage.removeItem('token');
@@ -35,12 +34,13 @@ const Navbarjs = ({ setToken, setsignup }) => {
 
   const handleSignup = () => {
     setsignup(true);
-    navigate('/loginsignup')
-  }
+    navigate('/loginsignup');
+  };
+
   const handellogin = () => {
     setsignup(false);
-    navigate('/loginsignup')
-  }
+    navigate('/loginsignup');
+  };
 
   // Close navbar on outside click
   useEffect(() => {
@@ -71,9 +71,9 @@ const Navbarjs = ({ setToken, setsignup }) => {
         <Navbar.Toggle
           aria-controls="navbarScroll"
           onClick={() => setNavbarExpanded(!navbarExpanded)}
-          className='mr-4'
+          className="mr-4"
         />
-        <Navbar.Collapse id="navbarScroll" className={navbarExpanded ? "p-0" : "px-4"}>
+        <Navbar.Collapse id="navbarScroll" className={navbarExpanded ? 'p-0' : 'px-4'}>
           <Nav
             className={`ms-auto my-2 my-lg-0 w-100 transition-all duration-300 ease-in-out justify-content-end ${navbarExpanded ? 'mt-4' : 'mt-0'}`}
             style={{ maxHeight: '300px' }}
@@ -81,50 +81,83 @@ const Navbarjs = ({ setToken, setsignup }) => {
           >
             {htoken ? (
               <>
-                <Nav.Link as={Link} to="/hospitaldashboard" className={navbarExpanded ? 'mt-3' : ''}>Dashboard</Nav.Link>
+                <Nav.Link as={Link} to="/hospitaldashboard" className={navbarExpanded ? 'mt-3' : ''} onClick={() => setNavbarExpanded(false)}>
+                  Dashboard
+                </Nav.Link>
                 <button
                   className={`bg-indigo-500 px-5 text-white rounded-3xl transition duration-300 hover:bg-indigo-600 ${navbarExpanded ? 'mt-3' : ''}`}
-                  onClick={handleLogout}
+                  onClick={() => {
+                    handleLogout();
+                    setNavbarExpanded(false);
+                  }}
                 >
                   Logout
                 </button>
               </>
             ) : atoken ? (
               <>
-                <Nav.Link as={Link} to="/home" className={navbarExpanded ? 'mt-3' : ''}>Home</Nav.Link>
-                <Nav.Link as={Link} to="/eventsadmin" className={navbarExpanded ? 'mt-3' : ''}>Events</Nav.Link>
-                <Nav.Link as={Link} to="/admin" className={navbarExpanded ? 'mt-3' : ''}>Admin Home</Nav.Link>
-                <Nav.Link as={Link} to="/manageUsers" className={navbarExpanded ? 'mt-3' : ''}>Manage Users</Nav.Link>
-                <Nav.Link as={Link} to="/adminimageupload" className={navbarExpanded ? 'mt-3' : ''}>Images</Nav.Link>
-
+                <Nav.Link as={Link} to="/home" className={navbarExpanded ? 'mt-3' : ''} onClick={() => setNavbarExpanded(false)}>
+                  Home
+                </Nav.Link>
+                <Nav.Link as={Link} to="/eventsadmin" className={navbarExpanded ? 'mt-3' : ''} onClick={() => setNavbarExpanded(false)}>
+                  Events
+                </Nav.Link>
+                <Nav.Link as={Link} to="/admin" className={navbarExpanded ? 'mt-3' : ''} onClick={() => setNavbarExpanded(false)}>
+                  Admin Home
+                </Nav.Link>
+                <Nav.Link as={Link} to="/manageUsers" className={navbarExpanded ? 'mt-3' : ''} onClick={() => setNavbarExpanded(false)}>
+                  Manage Users
+                </Nav.Link>
+                <Nav.Link as={Link} to="/adminimageupload" className={navbarExpanded ? 'mt-3' : ''} onClick={() => setNavbarExpanded(false)}>
+                  Images
+                </Nav.Link>
                 <button
                   className={`bg-indigo-500 px-5 text-white rounded-3xl transition duration-300 hover:bg-indigo-600 ${navbarExpanded ? 'mt-3' : ''}`}
-                  onClick={handleLogout}
+                  onClick={() => {
+                    handleLogout();
+                    setNavbarExpanded(false);
+                  }}
                 >
                   Logout
                 </button>
               </>
             ) : token ? (
               <>
-                <Nav.Link as={Link} to="/bloodRequirement" className={navbarExpanded ? 'mt-3' : ''}>Blood / Camps Request</Nav.Link>
-                <Nav.Link as={Link} to="/home" className={navbarExpanded ? 'mt-3' : ''}>Home</Nav.Link>
-                <Nav.Link as={Link} to="/about" className={navbarExpanded ? 'mt-3' : ''}>About</Nav.Link>
-                <Nav.Link as={Link} to="/userprofile" className={navbarExpanded ? 'mt-3' : ''}>Profile</Nav.Link>
+                <Nav.Link as={Link} to="/bloodRequirement" className={navbarExpanded ? 'mt-3 h-10' : ''} onClick={() => setNavbarExpanded(false)}>
+                  Blood / Camps Request
+                </Nav.Link>
+                <Nav.Link as={Link} to="/home" className={navbarExpanded ? 'mt-3 h-10' : ''} onClick={() => setNavbarExpanded(false)}>
+                  Home
+                </Nav.Link>
+                <Nav.Link as={Link} to="/about" className={navbarExpanded ? 'mt-3 h-10' : ''} onClick={() => setNavbarExpanded(false)}>
+                  About
+                </Nav.Link>
+                <Nav.Link as={Link} to="/userprofile" className={navbarExpanded ? 'mt-3 h-10' : ''} onClick={() => setNavbarExpanded(false)}>
+                  Profile
+                </Nav.Link>
                 <button
-                  className={`bg-indigo-500 px-5 text-white rounded-3xl transition duration-300 hover:bg-indigo-600 ${navbarExpanded ? 'mt-3' : ''}`}
-                  onClick={handleLogout}
+                  className={`bg-indigo-500 px-5 text-white rounded-3xl transition duration-300 hover:bg-indigo-600 ${navbarExpanded ? 'mt-3 h-10' : ''}`}
+                  onClick={() => {
+                    handleLogout();
+                    setNavbarExpanded(false);
+                  }}
                 >
                   Logout
                 </button>
               </>
             ) : (
               <>
-                <Nav.Link as={Link} to="/" className={navbarExpanded ? 'mt-3' : ''}>Home</Nav.Link>
-                <Nav.Link as={Link} to="/loginsignup" className={navbarExpanded ? 'mt-3' : ''}>Emergency Blood Request</Nav.Link>
+                <Nav.Link as={Link} to="/" className={navbarExpanded ? 'mt-3' : ''} onClick={() => setNavbarExpanded(false)}>
+                  Home
+                </Nav.Link>
+                <Nav.Link as={Link} to="/loginsignup" className={navbarExpanded ? 'mt-3' : ''} onClick={() => setNavbarExpanded(false)}>
+                  Emergency Blood Request
+                </Nav.Link>
                 <Nav.Link
                   as={Link}
                   to="/hospitalLoginSignup"
                   className={`bg-indigo-500 px-5 text-white rounded-3xl transition duration-300 hover:bg-indigo-600 mr-1 ${navbarExpanded ? 'mt-3' : ''}`}
+                  onClick={() => setNavbarExpanded(false)}
                 >
                   Hospital / Organization
                 </Nav.Link>
@@ -132,7 +165,10 @@ const Navbarjs = ({ setToken, setsignup }) => {
                   as={Link}
                   to="/loginsignup"
                   className={`bg-indigo-500 px-5 text-white rounded-3xl transition duration-300 hover:bg-indigo-600 ${navbarExpanded ? 'mt-3' : ''}`}
-                  onClick={handellogin}
+                  onClick={() => {
+                    handellogin();
+                    setNavbarExpanded(false);
+                  }}
                 >
                   Login
                 </Nav.Link>
@@ -140,7 +176,10 @@ const Navbarjs = ({ setToken, setsignup }) => {
                   as={Link}
                   to="/loginsignup"
                   className={`bg-red-500 px-4 ml-1 text-white rounded-3xl transition duration-300 hover:bg-red-600 ${navbarExpanded ? 'mt-3' : ''}`}
-                  onClick={handleSignup}
+                  onClick={() => {
+                    handleSignup();
+                    setNavbarExpanded(false);
+                  }}
                 >
                   Register As a Donor
                 </Nav.Link>
@@ -150,11 +189,7 @@ const Navbarjs = ({ setToken, setsignup }) => {
         </Navbar.Collapse>
       </Container>
     </Navbar>
-
-
-
   );
-
 };
 
 export default Navbarjs;

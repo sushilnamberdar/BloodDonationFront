@@ -233,7 +233,7 @@ const Hero = ({ setToken }) => {
 
       <div data-aos='fade-zoom'>
         <h2>Blood Request</h2>
-        <ul className="donater-grid ml-2 mr-2 flex items-center lg:text-2xl justify-evenly">
+        <ul className="donater-grid ml-2 mr-2 mt-2 flex items-center lg:text-2xl justify-evenly">
           {donaters.map((donater, index) => (
             <Link to={`/donationDetails?donationId=${donater._id}`} key={index}>
               <li className='border-4' >
