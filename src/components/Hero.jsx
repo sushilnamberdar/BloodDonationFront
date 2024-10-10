@@ -29,7 +29,7 @@ const Hero = ({ setToken }) => {
           headers: { Authorization: token },
         });
 
-        // console.log(response);
+        console.log(response);
         setDonaters(response.data.donaters || []);  // Handle potential undefined
         setCampRequests(response.data.camps || []);  // Handle potential undefined
         sethospitalrequest(response.data.hospitalRequests || []);  // Handle potential undefined

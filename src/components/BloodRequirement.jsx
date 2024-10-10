@@ -313,7 +313,7 @@ const BloodRequirement = ({ setToken }) => {
 
 
             <h2>Your Requests</h2>
-            <div className='user-Requests lg:text-2xl sm:text-2xl xl:text-2xl md:text-xl  text-xl ml-2 mr-2 mb-10 flex items-center justify-evenly'>
+            <div className='user-Requests flex flex-wrap lg:text-2xl sm:text-2xl xl:text-2xl md:text-xl  text-xl ml-2 mr-2 mb-10 flex items-center justify-evenly'>
                 {requests.map((donater, index) => (
                     <div className='request border-4 bg-body-tertiary  py-2  px-3  rounded-xl hover:shadow-2xl'>
                         <Link to={`/donorsResponse?requestNumber=${donater._id}`} className='links-decorations'>
