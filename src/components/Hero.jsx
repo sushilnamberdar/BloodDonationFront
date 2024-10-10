@@ -29,7 +29,7 @@ const Hero = ({ setToken }) => {
           headers: { Authorization: token },
         });
 
-        console.log(response);
+        // console.log(response);
         setDonaters(response.data.donaters || []);  // Handle potential undefined
         setCampRequests(response.data.camps || []);  // Handle potential undefined
         sethospitalrequest(response.data.hospitalRequests || []);  // Handle potential undefined
@@ -276,7 +276,7 @@ const Hero = ({ setToken }) => {
       </div>
 
 
-      <div className="bg-white p-6 rounded-lg shadow-md">
+      <div className="bg-white p-6 rounded-lg shadow-md mt-2">
         <h2 className="text-2xl font-semibold mb-4">Hospital Blood Request</h2>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
